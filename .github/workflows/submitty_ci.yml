@@ -16,7 +16,7 @@ env:
 
 jobs:
     eslint:
-        runs-on: ubuntu-18.04
+        runs-on: sdu-ubuntu-18.04
         defaults:
             run:
                 working-directory: site
@@ -38,7 +38,7 @@ jobs:
 
 
     js-unit:
-        runs-on: ubuntu-18.04
+        runs-on: sdu-ubuntu-18.04
         defaults:
             run:
                 working-directory: site
@@ -64,7 +64,7 @@ jobs:
 
 
     php-lint-static:
-        runs-on: ubuntu-18.04
+        runs-on: sdu-ubuntu-18.04
         defaults:
             run:
                 working-directory: site
@@ -95,7 +95,7 @@ jobs:
 
 
     php-unit:
-      runs-on: ubuntu-18.04
+      runs-on: sdu-ubuntu-18.04
       defaults:
           run:
               working-directory: site
@@ -128,7 +128,7 @@ jobs:
 
 
     python-lint:
-      runs-on: ubuntu-18.04
+      runs-on: sdu-ubuntu-18.04
       steps:
         - uses: actions/checkout@v2
         - uses: actions/setup-python@v2
@@ -150,7 +150,7 @@ jobs:
 
 
     python-unit:
-      runs-on: ubuntu-18.04
+      runs-on: sdu-ubuntu-18.04
       steps:
         - uses: actions/checkout@v2
         - uses: actions/setup-python@v2
@@ -215,7 +215,7 @@ jobs:
           - python-lint
           - python-unit
           - js-unit
-        runs-on: ubuntu-18.04
+        runs-on: sdu-ubuntu-18.04
         services:
           postgres:
             image: postgres
