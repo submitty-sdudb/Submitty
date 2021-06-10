@@ -483,7 +483,7 @@ class ElectronicGraderController extends AbstractController {
         }
 
         $gradeableUrl = $this->core->buildCourseUrl(['gradeable', $gradeable->getId(), 'grading', 'status']);
-        $this->core->getOutput()->addBreadcrumb("{$gradeable->getTitle()} Grading", $gradeableUrl);
+        $this->core->getOutput()->addBreadcrumb("{$gradeable->getTitle()}得分", $gradeableUrl);
 
         $isPeerGradeable = false;
         if ($gradeable->isPeerGrading() && ($this->core->getUser()->getGroup() < User::GROUP_STUDENT)) {
@@ -809,9 +809,9 @@ class ElectronicGraderController extends AbstractController {
         }
 
         $gradeableUrl = $this->core->buildCourseUrl(['gradeable', $gradeable->getId(), 'grading', 'status']);
-        $this->core->getOutput()->addBreadcrumb("{$gradeable->getTitle()} Grading", $gradeableUrl);
+        $this->core->getOutput()->addBreadcrumb("{$gradeable->getTitle()}得分", $gradeableUrl);
 
-        $this->core->getOutput()->addBreadcrumb('Student Index');
+        $this->core->getOutput()->addBreadcrumb('学生排名');
 
         $peer = ($gradeable->isPeerGrading() && $this->core->getUser()->getGroup() == User::GROUP_STUDENT);
         if (!$this->core->getAccess()->canI("grading.electronic.details", ["gradeable" => $gradeable])) {
@@ -1345,9 +1345,9 @@ class ElectronicGraderController extends AbstractController {
         }
 
         $gradeableUrl = $this->core->buildCourseUrl(['gradeable', $gradeable->getId(), 'grading', 'status']);
-        $this->core->getOutput()->addBreadcrumb("{$gradeable->getTitle()} Grading", $gradeableUrl);
+        $this->core->getOutput()->addBreadcrumb("{$gradeable->getTitle()}得分", $gradeableUrl);
         $indexUrl = $this->core->buildCourseUrl(['gradeable', $gradeable_id, 'grading', 'details']);
-        $this->core->getOutput()->addBreadcrumb('Grading Interface ' . GradingOrder::getGradingOrderMessage($sort, $direction));
+        $this->core->getOutput()->addBreadcrumb('得分' . GradingOrder::getGradingOrderMessage($sort, $direction));
         $graded = 0;
         $total = 0;
         $total_submitted = 0;

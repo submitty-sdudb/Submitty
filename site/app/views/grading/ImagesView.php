@@ -23,7 +23,7 @@ class ImagesView extends AbstractView {
      * @return string
      */
     public function listStudentImages($students, $grader_sections, $has_full_access, $view) {
-        $this->core->getOutput()->addBreadcrumb("Student Photos");
+        $this->core->getOutput()->addBreadcrumb("学生照片");
         $this->core->getOutput()->addInternalJs("drag-and-drop.js");
         $this->core->getOutput()->addInternalCss(FileUtils::joinPaths('fileinput.css'));
         $this->core->getOutput()->enableMobileViewport();

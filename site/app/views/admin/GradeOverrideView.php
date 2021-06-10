@@ -8,7 +8,7 @@ use app\libraries\Utils;
 class GradeOverrideView extends AbstractView {
     public function displayOverriddenGrades(array $gradeables, array $students) {
         $this->core->getOutput()->addInternalCss('table.css');
-        $this->core->getOutput()->addBreadcrumb('Grades Override');
+        $this->core->getOutput()->addBreadcrumb('修改成绩');
 
         $student_full = Utils::getAutoFillData($students);
         $this->core->getOutput()->enableMobileViewport();

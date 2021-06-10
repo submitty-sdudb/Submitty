@@ -38,7 +38,7 @@ class CalendarView extends AbstractView {
         $this->core->getOutput()->addInternalJs('calendar.js');
         $this->core->getOutput()->addInternalCss('table.css');
         $this->core->getOutput()->enableMobileViewport();
-        $this->core->getOutput()->addBreadcrumb("Calendar");
+        $this->core->getOutput()->addBreadcrumb("日历");
 
         return $this->core->getOutput()->renderTwigTemplate("calendar/Calendar.twig", [
             "show_table" => $show_table,

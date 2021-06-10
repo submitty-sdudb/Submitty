@@ -14,7 +14,7 @@ class ConfigurationView extends AbstractView {
     ) {
         $this->output->addInternalJs("configuration.js");
         $this->output->addInternalCss("configuration.css");
-        $this->output->addBreadcrumb('Course Settings');
+        $this->output->addBreadcrumb('课程设置');
         $this->core->getOutput()->enableMobileViewport();
         return $this->output->renderTwigTemplate("admin/Configuration.twig", [
             "fields" => $fields,

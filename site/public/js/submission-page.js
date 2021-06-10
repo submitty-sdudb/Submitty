@@ -91,7 +91,7 @@ function updateTime() {
         lastTime = Date.now();
         if (document.getElementById('gradeable-time-remaining-text') !== null) {
             if (curTime > deadline) {
-                document.getElementById('gradeable-time-remaining-text').textContent = 'Gradeable Time Remaining: Past Due';
+                document.getElementById('gradeable-time-remaining-text').textContent = '剩余提交时间： 已超时';
             }
             else {
                 const time = Math.floor((deadline - curTime)/1000);
@@ -100,20 +100,20 @@ function updateTime() {
                 hours = Math.floor(time / 3600) % 24;
                 days = Math.floor(time / (3600*24));
                 if (days > 0) {
-                    document.getElementById('gradeable-time-remaining-text').textContent = `Gradeable Time Remaining: ${days.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping: false})} days ${hours.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping: false})} hours`;
+                    document.getElementById('gradeable-time-remaining-text').textContent = `剩余提交时间： ${days.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping: false})} 天 ${hours.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping: false})} 小时`;
                 }
                 else if (hours > 0) {
-                    document.getElementById('gradeable-time-remaining-text').textContent = `Gradeable Time Remaining: ${hours.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping: false})} hours ${mins.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping: false})} mins`;
+                    document.getElementById('gradeable-time-remaining-text').textContent = `剩余提交时间： ${hours.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping: false})} 小时 ${mins.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping: false})} 分`;
                 }
                 else {
-                    document.getElementById('gradeable-time-remaining-text').textContent = `Gradeable Time Remaining: ${mins.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping: false})} mins ${seconds.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping: false})} seconds`;
+                    document.getElementById('gradeable-time-remaining-text').textContent = `剩余提交时间： ${mins.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping: false})} 分 ${seconds.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping: false})} 秒`;
                 }
             }
         }
         if (user_deadline !== 0) {
             if (document.getElementById('time-remaining-text') !== null) {
                 if (curTime > user_deadline) {
-                    document.getElementById('time-remaining-text').textContent = 'Your Time Remaining: Past Due';
+                    document.getElementById('time-remaining-text').textContent = 'Your Time Remaining: 已超时';
                     document.getElementById('gradeable-progress-bar').style.backgroundColor = 'var(--alert-danger-red)';
                     document.getElementById('gradeable-progress-bar').style.width = '100%';
                 }

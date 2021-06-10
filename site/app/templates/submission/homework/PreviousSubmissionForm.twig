@@ -1,13 +1,13 @@
 {% extends 'generic/Popup.twig' %}
 {% block popup_id %}previous-submission-form{% endblock %}
-{% block title %}Previous Submission{% endblock %}
+{% block title %}历史提交{% endblock %}
 {% block body %}
     <fieldset>
-        <legend>This user/team has a previous submission.<br>What file(s) should be contained in the new submission?</legend>
+        <legend>当前已有历史提交信息<br>需要在新的提交中保留哪些文件？</legend>
         <br>
-        <input type="radio" id="instructor-submit-option-new" name="instructor-submit"><label for="instructor-submit-option-new">only the new files</label><br>
-        <input type="radio" id="instructor-submit-option-merge-1" name="instructor-submit"><label for="instructor-submit-option-merge-1">old files and new files -- old files with the same name will be renamed.</label><br>
-        <input type="radio" id="instructor-submit-option-merge-2" name="instructor-submit"><label for="instructor-submit-option-merge-2">old files and new files -- old files with the same name will be overwritten.</label>
+        <input type="radio" id="instructor-submit-option-new" name="instructor-submit"><label for="instructor-submit-option-new">只有新文件</label><br>
+        <input type="radio" id="instructor-submit-option-merge-1" name="instructor-submit"><label for="instructor-submit-option-merge-1">全部保留 - 重名的老文件会被重命名</label><br>
+        <input type="radio" id="instructor-submit-option-merge-2" name="instructor-submit"><label for="instructor-submit-option-merge-2">全部保留 - 重名的老文件会被覆盖</label>
     </fieldset>
 {% endblock %}
 {% block buttons %}

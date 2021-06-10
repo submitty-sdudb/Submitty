@@ -10,7 +10,7 @@ use app\libraries\Utils;
 class OfficeHoursQueueView extends AbstractView {
 
     public function showTheQueue($viewer) {
-        $this->core->getOutput()->addBreadcrumb("Office Hours Queue");
+        $this->core->getOutput()->addBreadcrumb("预约讨论");
         $this->core->getOutput()->addInternalCss('officeHoursQueue.css');
         $this->core->getOutput()->addInternalJs('websocket.js');
         $this->core->getOutput()->addInternalJs('notification-sound.js');
@@ -32,8 +32,8 @@ class OfficeHoursQueueView extends AbstractView {
     }
 
     public function showQueueStats($overallData, $todayData, $weekDayThisWeekData, $weekDayData, $queueData, $weekNumberData): string {
-        $this->core->getOutput()->addBreadcrumb("Office Hours/Lab Queue", $this->core->buildCourseUrl(["office_hours_queue"]));
-        $this->core->getOutput()->addBreadcrumb("Statistics");
+        $this->core->getOutput()->addBreadcrumb("预约讨论", $this->core->buildCourseUrl(["office_hours_queue"]));
+        $this->core->getOutput()->addBreadcrumb("统计信息");
         $this->core->getOutput()->enableMobileViewport();
         return $this->core->getOutput()->renderTwigTemplate('officeHoursQueue/QueueStats.twig', [
           'csrf_token' => $this->core->getCsrfToken(),
@@ -50,8 +50,8 @@ class OfficeHoursQueueView extends AbstractView {
     }
 
     public function showQueueStudentStats($studentData) {
-        $this->core->getOutput()->addBreadcrumb("Office Hours/Lab Queue", $this->core->buildCourseUrl(["office_hours_queue"]));
-        $this->core->getOutput()->addBreadcrumb("Statistics");
+        $this->core->getOutput()->addBreadcrumb("预约讨论", $this->core->buildCourseUrl(["office_hours_queue"]));
+        $this->core->getOutput()->addBreadcrumb("统计信息");
         $this->core->getOutput()->enableMobileViewport();
         return $this->core->getOutput()->renderTwigTemplate("officeHoursQueue/QueueStatsStudents.twig", [
           'csrf_token' => $this->core->getCsrfToken(),

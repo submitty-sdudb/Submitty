@@ -1,9 +1,9 @@
 <div id="courses" class="content">
     {% for ranks in statuses %}
         {% if loop.index == 1 or ranks|length > 0 %}
-            <h1>My {{ loop.index == 1 ? "" : "Archived " }}Courses</h1>
+            <h1>{{ loop.index == 1 ? "" : "已归档" }}课程</h1>
             {% for rank in ranks %}
-                <h2>As {{ rank.title }}</h2>
+                <h2>当前角色：{{ rank.title }}</h2>
                 {% set display_semester = '' %}
                 {% for course in rank.courses %}
                     {% if display_semester != course.display_semester %}

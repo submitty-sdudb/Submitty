@@ -515,7 +515,7 @@ class TeamController extends AbstractController {
 
         $date = $this->core->getDateTimeNow();
         $lock = $date->format('Y-m-d H:i:s') > $gradeable->getTeamLockDate()->format('Y-m-d H:i:s');
-        $this->core->getOutput()->addBreadcrumb("Manage Team For: {$gradeable->getTitle()}");
+        $this->core->getOutput()->addBreadcrumb("管理小组：{$gradeable->getTitle()}");
         $this->core->getOutput()->renderOutput(['submission', 'Team'], 'showTeamPage', $gradeable, $team, $members, $seekers, $invites_received, $seeking_partner, $lock);
     }
 

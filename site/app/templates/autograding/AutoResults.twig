@@ -2,9 +2,9 @@
 
 {% if num_visible_testcases == 0 %}
    {% if incomplete_autograding %}
-      <h4>Autograding Results Incomplete</h4>
+      <h4>未完成自动打分</h4>
    {% else %}
-      <h4>No Autograding for this Gradeable</h4>
+      <h4>无自动打分部分</h4>
    {% endif %}
 {% endif %}
 
@@ -28,7 +28,7 @@
 
             <div class="box-title-total">
                 {{ Badge.render(nonhidden_earned, nonhidden_max, false) }}
-                <h4>Autograding Total {% if show_hidden_breakdown %} <i>(Without Hidden Points)</i>{% endif %}</h4>
+                <h4>自动打分合计{% if show_hidden_breakdown %} <i>(除去附加分)</i>{% endif %}</h4>
             </div>
         </div>
         {% if show_hidden_breakdown %}
@@ -40,7 +40,7 @@
             >
                 <div class="box-title-total">
                     {{ Badge.render(hidden_earned, hidden_max, false) }}
-                    <h4>Autograding Total <i>(With Hidden Points)</i></h4>
+                    <h4>自动打分合计<i>(包含附加分)</i></h4>
                 </div>
             </div>
         {% endif %}
@@ -66,13 +66,13 @@
                             {% if testcase.has_extra_results and can_view_details %}
                                 <span class="loading-tools" id="details_tc_{{ loop.index0 }}" style="float:right">
                                 <span class="loading-tools-hide" style="color: var(--standard-deep-blue); text-decoration: underline;" hidden>
-                                    Hide Details
+                                    隐藏细节
                                 </span>
                                 <span class="loading-tools-show" style="color: var(--standard-deep-blue); text-decoration: underline;">
-                                    Show Details
+                                    显示细节
                                 </span>
                                 <span class="loading-tools-in-progress" aria-label="Loading Details for {{testcase.name}}" hidden>
-                                    <i class="fas fa-circle-notch fa-spin save-button"></i>Loading...
+                                    <i class="fas fa-circle-notch fa-spin save-button"></i>加载中…
                                 </span>
                             </span>
                             {% endif %}
@@ -84,7 +84,7 @@
                                     {{ Badge.render(testcase.points, testcase.points_total, testcase.extra_credit) }}
                                 {% else %}
                                     <div class="badge">
-                                        Hidden
+                                        隐藏
                                     </div>
                                 {% endif %}
                             {% elseif has_badges %}
@@ -101,7 +101,7 @@
                                 <code>{{ testcase.details }}</code>
                                 &nbsp;&nbsp;
                                 {% if testcase.extra_credit %}
-                                    <span class='italics' style="color: var(--extra-credit-blue);">Extra Credit</span>
+                                    <span class='italics' style="color: var(--extra-credit-blue);">附加分</span>
                                 {% endif %}
                                 &nbsp;&nbsp;
                                 {% if can_view and testcase.view_testcase_message %}

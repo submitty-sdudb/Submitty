@@ -12,23 +12,23 @@
 
         <div class="modal-header" style="overflow: auto;">
             <div>
-                <h1 id="myModalLabel">{{ action == 'edit' ? 'Edit Gradeable' : 'New Gradeable' }}<span id="modal_label_title"></span></h1>
+                <h1 id="myModalLabel">{{ action == 'edit' ? '编辑作业' : '创建作业' }}<span id="modal_label_title"></span></h1>
 			</div>
             <div>
                 <b>
-                    <a target=_blank href="http://submitty.org/instructor/create_edit_gradeable">Need help with creating/editing a gradeable? <i style="font-style:normal;" class="fa-question-circle"></i></a>
+                    <a target=_blank href="http://submitty.org/instructor/create_edit_gradeable">需要查看创建或修改作业的流程吗？<i style="font-style:normal;" class="fa-question-circle"></i></a>
                 </b>
                 <div style="float: right" id="save_status"></div>
             </div>
         </div>
         <br/>
         <div class="tab-bar-wrapper">
-            <a class="nav-bar key_to_click" id="page_0_nav" onclick="onChangeNavTab(0);">General</a>
-            <a class="nav-bar key_to_click" id="page_1_nav" onclick="onChangeNavTab(1);">Submissions/Autograding</a>
-            <a class="nav-bar key_to_click" id="page_2_nav" onclick="onChangeNavTab(2);">Rubric</a>
-            <a class="nav-bar key_to_click" id="page_3_nav" onclick="onChangeNavTab(3);">Grader Assignment</a>
-            <a class="nav-bar key_to_click normal-btn{{(gradeable.isPeerGrading()) ? '' : ' hidden-no-peers'}}" id="page_4_nav" onclick="onChangeNavTab(4);">Peer Matrix</a>
-            <a class="nav-bar key_to_click" id="page_5_nav" onclick="onChangeNavTab(5);">Dates</a>
+            <a class="nav-bar key_to_click" id="page_0_nav" onclick="onChangeNavTab(0);">基本设置</a>
+            <a class="nav-bar key_to_click" id="page_1_nav" onclick="onChangeNavTab(1);">提交与自动评分</a>
+            <a class="nav-bar key_to_click" id="page_2_nav" onclick="onChangeNavTab(2);">评分细则</a>
+            <a class="nav-bar key_to_click" id="page_3_nav" onclick="onChangeNavTab(3);">打分人员</a>
+            <a class="nav-bar key_to_click normal-btn{{(gradeable.isPeerGrading()) ? '' : ' hidden-no-peers'}}" id="page_4_nav" onclick="onChangeNavTab(4);">互改设置</a>
+            <a class="nav-bar key_to_click" id="page_5_nav" onclick="onChangeNavTab(5);">期限</a>
         </div>
         <br/>
         <br/>

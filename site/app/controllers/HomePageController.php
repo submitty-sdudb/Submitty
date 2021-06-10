@@ -97,8 +97,8 @@ class HomePageController extends AbstractController {
         $user = $this->core->getUser();
         if (is_null($user) || !$user->accessFaculty()) {
             return new MultiResponse(
-                JsonResponse::getFailResponse("You don't have access to this endpoint."),
-                new WebResponse("Error", "errorPage", "You don't have access to this page.")
+                JsonResponse::getFailResponse("无权访问"),
+                new WebResponse("Error", "errorPage", "无权访问")
             );
         }
 
@@ -107,7 +107,7 @@ class HomePageController extends AbstractController {
             || !isset($_POST['course_title'])
             || !isset($_POST['head_instructor'])
         ) {
-            $error = "Semester, course title or head instructor not set.";
+            $error = "未设置学期、课程名称或老师";
             $this->core->addErrorMessage($error);
             return new MultiResponse(
                 JsonResponse::getFailResponse($error),
@@ -121,7 +121,7 @@ class HomePageController extends AbstractController {
         $head_instructor = $_POST['head_instructor'];
 
         if ($user->getAccessLevel() === User::LEVEL_FACULTY && $head_instructor !== $user->getId()) {
-            $error = "You can only create course for yourself.";
+            $error = "只能为自己创建课程";
             $this->core->addErrorMessage($error);
             return new MultiResponse(
                 JsonResponse::getFailResponse($error),
@@ -131,7 +131,7 @@ class HomePageController extends AbstractController {
         }
 
         if (empty($this->core->getQueries()->getSubmittyUser($head_instructor))) {
-            $error = "Head instructor doesn't exist.";
+            $error = "老师不存在";
             $this->core->addErrorMessage($error);
             return new MultiResponse(
                 JsonResponse::getFailResponse($error),
@@ -164,7 +164,7 @@ class HomePageController extends AbstractController {
             );
 
             if (empty($group_check) || empty($base_course_semester) || empty($base_course_title)) {
-                $error = "Invalid base course.";
+                $error = "课程无效";
                 $this->core->addErrorMessage($error);
                 return new MultiResponse(
                     JsonResponse::getFailResponse($error),
@@ -174,7 +174,7 @@ class HomePageController extends AbstractController {
             }
 
             if (json_decode($group_check, true)['status'] === 'fail') {
-                $error = "The instructor is not in the correct Linux group.\n Please contact sysadmin for more information.";
+                $error = "老师未在系统组\n 请联系管理员修复";
                 $this->core->addErrorMessage($error);
                 return new MultiResponse(
                     JsonResponse::getFailResponse($error),
@@ -184,7 +184,7 @@ class HomePageController extends AbstractController {
             }
         }
         catch (\Exception $e) {
-            $error = "Server error.";
+            $error = "服务器异常";
             $this->core->addErrorMessage($error);
             return new MultiResponse(
                 JsonResponse::getErrorResponse($error),
@@ -205,7 +205,7 @@ class HomePageController extends AbstractController {
         $json = json_encode($json, JSON_PRETTY_PRINT);
         file_put_contents('/var/local/submitty/daemon_job_queue/create_' . $semester . '_' . $course_title . '.json', $json);
 
-        $this->core->addSuccessMessage("Course creation request successfully sent.\n Please refresh the page later.");
+        $this->core->addSuccessMessage("课程创建请求发送成功\n 请稍后刷新页面");
         return new MultiResponse(
             JsonResponse::getSuccessResponse(null),
             null,
@@ -220,8 +220,8 @@ class HomePageController extends AbstractController {
         $user = $this->core->getUser();
         if (is_null($user) || !$user->accessFaculty()) {
             return new MultiResponse(
-                JsonResponse::getFailResponse("You don't have access to this endpoint."),
-                new WebResponse("Error", "errorPage", "You don't have access to this page.")
+                JsonResponse::getFailResponse("无权访问"),
+                new WebResponse("Error", "errorPage", "无权访问")
             );
         }
 
@@ -257,14 +257,14 @@ class HomePageController extends AbstractController {
 
             $terms = $this->core->getQueries()->getAllTerms();
             if (in_array($term_id, $terms)) {
-                $this->core->addErrorMessage("Term id already exists.");
+                $this->core->addErrorMessage("学期ID已存在");
             }
             elseif ($end_date < $start_date) {
-                $this->core->addErrorMessage("End date should be after Start date.");
+                $this->core->addErrorMessage("结束时间应晚于开始时间");
             }
             else {
                 $this->core->getQueries()->createNewTerm($term_id, $term_name, $start_date, $end_date);
-                $this->core->addSuccessMessage("Term added successfully.");
+                $this->core->addSuccessMessage("成功添加学期");
             }
             $url = $this->core->buildUrl(['home', 'courses', 'new']);
             $response = $response->RedirectOnlyResponse(new RedirectResponse($url));
@@ -280,8 +280,8 @@ class HomePageController extends AbstractController {
         $user = $this->core->getUser();
         if (is_null($user) || $user->getAccessLevel() !== User::LEVEL_SUPERUSER) {
             return new MultiResponse(
-                JsonResponse::getFailResponse("You don't have access to this endpoint."),
-                new WebResponse("Error", "errorPage", "You don't have access to this page.")
+                JsonResponse::getFailResponse("无权访问"),
+                new WebResponse("Error", "errorPage", "无权访问")
             );
         }
 

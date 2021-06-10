@@ -47,8 +47,8 @@ class ForumThreadView extends AbstractView {
 
     public function searchResult($threads) {
 
-        $this->core->getOutput()->addBreadcrumb("Discussion Forum", $this->core->buildCourseUrl(['forum']), null, $use_as_heading = true);
-        $this->core->getOutput()->addBreadcrumb("Search");
+        $this->core->getOutput()->addBreadcrumb("讨论区", $this->core->buildCourseUrl(['forum']), null, $use_as_heading = true);
+        $this->core->getOutput()->addBreadcrumb("搜索");
 
         $buttons = [
             [
@@ -156,7 +156,7 @@ class ForumThreadView extends AbstractView {
         $threadFiltering = $threadExists && !$filteredThreadExists && !(empty($_COOKIE[$currentCourse . '_forum_categories']) && empty($_COOKIE['forum_thread_status']) && empty($_COOKIE['unread_select_value']) === 'false');
 
         if (!$ajax) {
-            $this->core->getOutput()->addBreadcrumb("Discussion Forum", $this->core->buildCourseUrl(['forum']), null, $use_as_heading = true);
+            $this->core->getOutput()->addBreadcrumb("讨论区", $this->core->buildCourseUrl(['forum']), null, $use_as_heading = true);
 
             //Body Style is necessary to make sure that the forum is still readable...
             $this->core->getOutput()->addVendorCss('codemirror/codemirror.css');
@@ -1144,8 +1144,8 @@ class ForumThreadView extends AbstractView {
             return;
         }
 
-        $this->core->getOutput()->addBreadcrumb("Discussion Forum", $this->core->buildCourseUrl(['forum']), null, $use_as_heading = true);
-        $this->core->getOutput()->addBreadcrumb("Create Thread", $this->core->buildCourseUrl(['forum', 'threads', 'new']));
+        $this->core->getOutput()->addBreadcrumb("讨论区", $this->core->buildCourseUrl(['forum']), null, $use_as_heading = true);
+        $this->core->getOutput()->addBreadcrumb("创建讨论", $this->core->buildCourseUrl(['forum', 'threads', 'new']));
 
         $this->core->getOutput()->addInternalJs('drag-and-drop.js');
         $this->core->getOutput()->addVendorJs('flatpickr/flatpickr.js');
@@ -1202,8 +1202,8 @@ class ForumThreadView extends AbstractView {
             return;
         }
 
-        $this->core->getOutput()->addBreadcrumb("Discussion Forum", $this->core->buildCourseUrl(['forum']), null, $use_as_heading = true);
-        $this->core->getOutput()->addBreadcrumb("Manage Categories", $this->core->buildCourseUrl(['forum', 'categories']));
+        $this->core->getOutput()->addBreadcrumb("讨论区", $this->core->buildCourseUrl(['forum']), null, $use_as_heading = true);
+        $this->core->getOutput()->addBreadcrumb("管理分区", $this->core->buildCourseUrl(['forum', 'categories']));
 
         $this->core->getOutput()->addInternalJs('drag-and-drop.js');
         $this->core->getOutput()->addInternalJs('autosave-utils.js');
@@ -1261,8 +1261,8 @@ class ForumThreadView extends AbstractView {
             return;
         }
         $this->core->getOutput()->addInternalJs('stat-page.js');
-        $this->core->getOutput()->addBreadcrumb("Discussion Forum", $this->core->buildCourseUrl(['forum']), null, $use_as_heading = true);
-        $this->core->getOutput()->addBreadcrumb("Statistics", $this->core->buildCourseUrl(['forum', 'stats']));
+        $this->core->getOutput()->addBreadcrumb("讨论区", $this->core->buildCourseUrl(['forum']), null, $use_as_heading = true);
+        $this->core->getOutput()->addBreadcrumb("统计信息", $this->core->buildCourseUrl(['forum', 'stats']));
 
         $this->core->getOutput()->addInternalJs('autosave-utils.js');
         $this->core->getOutput()->addInternalJs('forum.js');

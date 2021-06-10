@@ -19,10 +19,10 @@ class HomePageView extends AbstractView {
         $statuses = [];
         $course_types = [$unarchived_courses, $archived_courses];
         $rank_titles = [
-            User::GROUP_INSTRUCTOR              => "Instructor:",
-            User::GROUP_FULL_ACCESS_GRADER      => "Full Access Grader:",
-            User::GROUP_LIMITED_ACCESS_GRADER   => "Grader:",
-            User::GROUP_STUDENT                 => "Student:"
+            User::GROUP_INSTRUCTOR              => "老师",
+            User::GROUP_FULL_ACCESS_GRADER      => "助教",
+            User::GROUP_LIMITED_ACCESS_GRADER   => "阅卷人",
+            User::GROUP_STUDENT                 => "学生"
         ];
 
         foreach ($course_types as $course_type) {
@@ -58,7 +58,7 @@ class HomePageView extends AbstractView {
     }
 
     public function showCourseCreationPage($faculty, $head_instructor, $semesters, bool $is_superuser, string $csrf_token) {
-        $this->output->addBreadcrumb("New Course");
+        $this->output->addBreadcrumb("新建课程");
         return $this->output->renderTwigTemplate('CreateCourseForm.twig', [
             "csrf_token" => $csrf_token,
             "head_instructor" => $head_instructor,
@@ -72,7 +72,7 @@ class HomePageView extends AbstractView {
     }
 
     public function showSystemUpdatePage(string $csrf_token): string {
-        $this->output->addBreadcrumb("System Update");
+        $this->output->addBreadcrumb("系统更新");
         return $this->output->renderTwigTemplate('admin/SystemUpdate.twig', [
             "csrf_token" => $csrf_token,
             "latest_tag" => $this->core->getConfig()->getLatestTag()

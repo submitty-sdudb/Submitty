@@ -78,7 +78,7 @@ class SimpleGraderView extends AbstractView {
         $this->core->getOutput()->addInternalJs('websocket.js');
         $this->core->getOutput()->addInternalJs('simple-grading.js');
         $this->core->getOutput()->addInternalCss('simple-grading.css');
-        $this->core->getOutput()->addBreadcrumb("Grading {$gradeable->getTitle()}");
+        $this->core->getOutput()->addBreadcrumb("为{$gradeable->getTitle()}打分");
 
         $return = $this->core->getOutput()->renderTwigTemplate("grading/simple/Display.twig", [
             "gradeable" => $gradeable,

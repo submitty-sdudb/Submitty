@@ -18,9 +18,9 @@ class NavigationView extends AbstractView {
     const gradeableSections = [
         GradeableList::FUTURE => [
             //What title is displayed to the user for each category
-            "title" => "FUTURE",
+            "title" => "即将开放",
             //Shown italicized after the title
-            "subtitle" => "visible only to Instructors",
+            "subtitle" => "仅老师可见",
             //Element id of the header row (used primarily by e2e tests)
             "section_id" => "future",
             //What bootstrap button the student button will be. Information about bootstrap buttons can be found here:
@@ -30,49 +30,49 @@ class NavigationView extends AbstractView {
             "button_type_grading" => "btn-default",
             //The general text of the button under the category
             //It is general since the text could change depending if the user submitted something or not and other factors.
-            "prefix" => "ALPHA SUBMIT"
+            "prefix" => "测试提交作业"
         ],
         GradeableList::BETA => [
-            "title" => "BETA",
-            "subtitle" => "open for testing by TAs",
+            "title" => "测试中",
+            "subtitle" => "对助教开放",
             "section_id" => "beta",
             "button_type_submission" => "btn-default",
             "button_type_grading" => "btn-default",
-            "prefix" => "BETA SUBMIT"
+            "prefix" => "测试提交作业"
         ],
         GradeableList::OPEN => [
-            "title" => "OPEN",
+            "title" => "开放",
             "is_panel_expanded" => true,
             "subtitle" => "",
             "section_id" => "open",
             "button_type_submission" => "btn-primary",
             "button_type_grading" => "btn-default",
-            "prefix" => "SUBMIT"
+            "prefix" => "提交作业"
         ],
         GradeableList::CLOSED => [
-            "title" => "PAST DUE",
+            "title" => "超时",
             "subtitle" => "",
             "section_id" => "closed",
             "button_type_submission" => "btn-danger",
             "button_type_grading" => "btn-default",
-            "prefix" => "LATE SUBMIT"
+            "prefix" => "迟交作业"
         ],
         GradeableList::GRADING => [
-            "title" => "CLOSED",
-            "subtitle" => "being graded by TA/Instructor",
+            "title" => "结束",
+            "subtitle" => "等待老师、助教打分",
             "section_id" => "items_being_graded",
             "button_type_submission" => "btn-default",
             "button_type_grading" => "btn-primary",
-            "prefix" => "VIEW SUBMISSION"
+            "prefix" => "查看作业"
         ],
         GradeableList::GRADED => [
-            "title" => "GRADES AVAILABLE",
+            "title" => "已出分",
             "subtitle" => "",
             "is_panel_expanded" => true,
             "section_id" => "graded",
             "button_type_submission" => 'btn-default',
             "button_type_grading" => 'btn-default',
-            "prefix" => "VIEW GRADE"
+            "prefix" => "查看成绩"
         ]
     ];
 
@@ -367,11 +367,11 @@ class NavigationView extends AbstractView {
         else {
             if ($past_lock_date) {
                 $team_button_type = 'btn-primary';
-                $team_button_text = 'MANAGE TEAM';
+                $team_button_text = '管理队伍';
             }
             else {
                 $team_button_type = 'btn-default';
-                $team_button_text = 'VIEW TEAM';
+                $team_button_text = '查看队伍';
             }
         }
 
@@ -517,47 +517,47 @@ class NavigationView extends AbstractView {
             }
             if (!$gradeable->isStudentSubmit() && $core->getUser()->accessFullGrading()) {
                 // Student isn't submitting
-                $title = "BULK UPLOAD";
+                $title = "批量上传";
                 $class = "btn-primary";
                 $date_text = "";
             }
             elseif ($gradeable->isStudentSubmit() && !$gradeable->hasDueDate() && $list_section != GradeableList::OPEN) {
-                $title = "SUBMIT";
+                $title = "提交";
                 $class = "btn-default";
             }
             elseif ($graded_gradeable->getAutoGradedGradeable()->isAutoGradingComplete() && $list_section == GradeableList::OPEN) {
                 //if the user submitted something on time
-                $title = "RESUBMIT";
+                $title = "重交";
             }
             elseif ($graded_gradeable->getAutoGradedGradeable()->isAutoGradingComplete() && $list_section == GradeableList::CLOSED) {
                 //if the user submitted something past time
                 if ($gradeable->isLateSubmissionAllowed()) {
-                    $title = "LATE RESUBMIT";
+                    $title = "迟交";
                 }
                 else {
-                    $title = "VIEW SUBMISSION";
+                    $title = "查看提交";
                     $class = 'btn-default';
                     $date_text = "";
                 }
             }
             elseif (!$graded_gradeable->getAutoGradedGradeable()->hasSubmission() && !$gradeable->isLateSubmissionAllowed() && $list_section == GradeableList::CLOSED) {
-                $title = "NO SUBMISSION";
+                $title = "未提交";
                 $class = "btn-danger";
                 $date_text = "";
             }
             elseif (!$graded_gradeable->getAutoGradedGradeable()->isAutoGradingComplete() && ($list_section == GradeableList::GRADED || $list_section == GradeableList::GRADING)) {
                 //to change the text to overdue submission if nothing was submitted on time
                 if ($gradeable->isStudentSubmit()) {
-                    $title = "OVERDUE SUBMISSION";
+                    $title = "迟交";
                 }
                 else {
-                    $title = "NO SUBMISSION";
+                    $title = "未提交";
                     $date_text = "";
                 }
             }
             elseif ($gradeable->isTaGrading() && !$graded_gradeable->isTaGradingComplete() && $list_section == GradeableList::GRADED) {
                 //when there is no TA grade and due date passed
-                $title = "TA GRADE NOT AVAILABLE";
+                $title = "未打分";
             }
         }
         else {
@@ -565,14 +565,14 @@ class NavigationView extends AbstractView {
             if ($gradeable->isTeamAssignment()) {
                 // team assignment, no team
                 if (!$submit_everyone) {
-                    $title = "MUST BE ON A TEAM TO SUBMIT";
+                    $title = "必须在队伍中才能提交";
                     $disabled = true;
                 }
                 if ($list_section > GradeableList::OPEN) {
                     $class = "btn-danger";
                     if ($submit_everyone) {
                         // team assignment, no team
-                        $title = "OVERDUE SUBMISSION";
+                        $title = "迟交";
                         $disabled = false;
                     }
                 }
@@ -634,7 +634,7 @@ class NavigationView extends AbstractView {
             if ($gradeable->anyActiveRegradeRequests()) {
                 //Open grade inquiries
                 return new Button($this->core, [
-                    "title" => "REGRADE",
+                    "title" => "重新打分",
                     "class" => "btn btn-danger btn-nav btn-nav-grade",
                     "href" => $href
                 ]);
@@ -646,17 +646,17 @@ class NavigationView extends AbstractView {
             $grades_due = $gradeable->getGradeDueDate();
             $grades_released = $gradeable->getGradeReleasedDate();
             if ($list_section === GradeableList::GRADING && $date < $grades_due) {
-                $title = 'GRADE';
-                $date_text = 'grades due ';
+                $title = '打分';
+                $date_text = '打分截止日期';
                 $date_time = $gradeable->getGradeDueDate();
             }
             elseif ($list_section === GradeableList::GRADING && $date < $grades_released) {
-                $title = 'GRADE';
-                $date_text = 'grades will be released ';
+                $title = '打分';
+                $date_text = '分数公布日期';
                 $date_time = $grades_released;
             }
             else {
-                $title = 'REGRADE';
+                $title = '重新打分';
             }
 
             if ($gradeable->getType() === GradeableType::ELECTRONIC_FILE) {
@@ -666,17 +666,17 @@ class NavigationView extends AbstractView {
                     if ($TA_percent === 1) {
                         //If they're done, change the text to REGRADE
                         $class = 'btn-default';
-                        $title = 'REGRADE';
+                        $title = '重新打分';
                     }
                     else {
                         if (!is_nan($TA_percent) && $list_section === GradeableList::GRADED) {
                             //You forgot somebody
                             $class = 'btn-danger';
-                            $title = 'GRADE';
+                            $title = '打分';
                         }
                         elseif (!is_nan($TA_percent) && $list_section === GradeableList::GRADING && $grades_due < $date && $date < $grades_released) {
                             $class = 'btn-danger';
-                            $title = 'GRADE';
+                            $title = '打分';
                         }
                     }
 
@@ -686,7 +686,7 @@ class NavigationView extends AbstractView {
                     }
                 }
                 else {
-                    $title = "VIEW SUBMISSIONS";
+                    $title = "查看提交";
                 }
             }
             else {
@@ -696,13 +696,13 @@ class NavigationView extends AbstractView {
         }
         else {
             if ($gradeable->getType() === GradeableType::ELECTRONIC_FILE && !$gradeable->isTaGrading()) {
-                $title = "VIEW SUBMISSIONS";
-                $date_text = "(no manual grading)";
+                $title = "查看提交";
+                $date_text = "(无手动打分)";
             }
             else {
                 //Before grading has opened, only thing we can do is preview
-                $title = 'PREVIEW GRADING';
-                $date_text = 'grading starts ';
+                $title = '预览成绩';
+                $date_text = '打分开始时间';
                 $date_time = $gradeable->getGradeStartDate();
             }
         }
@@ -724,7 +724,7 @@ class NavigationView extends AbstractView {
      */
     private function getEditButton(Gradeable $gradeable) {
         return new Button($this->core, [
-            "title" => "Edit Gradeable Configuration",
+            "title" => "编辑作业",
             "href" => $this->core->buildCourseUrl(['gradeable', $gradeable->getId(), 'update']),
             "class" => "fas fa-pencil-alt black-btn",
             "title_on_hover" => true,
@@ -739,7 +739,7 @@ class NavigationView extends AbstractView {
     private function getDeleteButton(Gradeable $gradeable) {
         $name = addslashes($gradeable->getTitle());
         return new Button($this->core, [
-            "title" => "Delete Gradeable",
+            "title" => "删除作业",
             "href" => "javascript:newDeleteGradeableForm('" .
                 $this->core->buildCourseUrl(['gradeable', $gradeable->getId(), 'delete'])
                 . "', '{$name}');",
@@ -758,7 +758,7 @@ class NavigationView extends AbstractView {
         $button = null;
         if ($list_section === GradeableList::GRADING) {
             $button = new Button($this->core, [
-                "subtitle" => "RELEASE GRADES NOW",
+                "subtitle" => "立即公布成绩",
                 "href" => $this->core->buildCourseUrl(['gradeable', $gradeable->getId(), 'quick_link']) . '?'
                     . http_build_query(['action' => 'release_grades_now']),
                 "class" => "btn btn-primary btn-nav btn-nav-open",
@@ -767,7 +767,7 @@ class NavigationView extends AbstractView {
         }
         elseif ($list_section === GradeableList::FUTURE) {
             $button = new Button($this->core, [
-                "subtitle" => "OPEN TO TAS NOW",
+                "subtitle" => "立即对助教开放",
                 "href" => $this->core->buildCourseUrl(['gradeable', $gradeable->getId(), 'quick_link']) . '?'
                     . http_build_query(['action' => 'open_ta_now']),
                 "class" => "btn btn-primary btn-nav btn-nav-open",
@@ -777,7 +777,7 @@ class NavigationView extends AbstractView {
         elseif ($list_section === GradeableList::BETA) {
             if ($gradeable->getType() == GradeableType::ELECTRONIC_FILE) {
                 $button = new Button($this->core, [
-                    "subtitle" => "OPEN NOW",
+                    "subtitle" => "立即对全员开放",
                     "href" => $this->core->buildCourseUrl(['gradeable', $gradeable->getId(), 'quick_link']) . '?'
                         . http_build_query(['action' => 'open_students_now']),
                     "class" => "btn btn-primary btn-nav btn-nav-open",
@@ -786,7 +786,7 @@ class NavigationView extends AbstractView {
             }
             else {
                 $button = new Button($this->core, [
-                    "subtitle" => "OPEN TO GRADING NOW",
+                    "subtitle" => "立即开始打分",
                     "href" => $this->core->buildCourseUrl(['gradeable', $gradeable->getId(), 'quick_link']) . '?'
                         . http_build_query(['action' => 'open_grading_now']),
                     "class" => "btn btn-primary btn-nav btn-nav-open",
@@ -797,7 +797,7 @@ class NavigationView extends AbstractView {
         elseif ($list_section === GradeableList::CLOSED) {
             if ($gradeable->isTaGrading()) {
                 $button = new Button($this->core, [
-                    "subtitle" => "OPEN TO GRADING NOW",
+                    "subtitle" => "立即开始打分",
                     "href" => $this->core->buildCourseUrl(['gradeable', $gradeable->getId(), 'quick_link']) . '?'
                         . http_build_query(['action' => 'open_grading_now']),
                     "class" => "btn btn-primary btn-nav btn-nav-open",
@@ -806,7 +806,7 @@ class NavigationView extends AbstractView {
             }
             else {
                 $button = new Button($this->core, [
-                    "subtitle" => "RELEASE GRADES NOW",
+                    "subtitle" => "立即公布成绩",
                     "href" => $this->core->buildCourseUrl(['gradeable', $gradeable->getId(), 'quick_link']) . '?'
                         . http_build_query(['action' => 'release_grades_now']),
                     "class" => "btn btn-primary btn-nav btn-nav-open",
@@ -819,7 +819,7 @@ class NavigationView extends AbstractView {
                 . http_build_query(['action' => 'close_submissions']);
 
             $button = new Button($this->core, [
-                "subtitle" => "CLOSE SUBMISSIONS NOW",
+                "subtitle" => "立即结束提交",
                 "onclick" => "displayCloseSubmissionsWarning(\"" . $url . "\",\"" . $gradeable->getTitle() . "\");",
                 "class" => "btn btn-default btn-nav btn-nav-open",
                 "name" => "quick-link-btn"

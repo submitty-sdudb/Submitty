@@ -182,6 +182,7 @@ source ${CURRENT_DIR}/distro_setup/setup_distro.sh
 #install DLL for zbar
 apt-get install libzbar0 --yes
 
+python3 -m pip install --upgrade pip
 pip3 install -r ${CURRENT_DIR}/.setup/pip/system_requirements.txt
 
 if [ ${VAGRANT} == 1 ]; then
@@ -203,7 +204,7 @@ fi
 if [ ${VAGRANT} == 1 ]; then
     # We only might build analysis tools from source while using vagrant
     echo "Installing stack (haskell)"
-    curl -sSL https://get.haskellstack.org/ | sh
+    curl -sSL https://get.haskellstack.org/ | sh || echo "Safely install"
 fi
 
 #################################################################
@@ -409,8 +410,8 @@ if [ ${WORKER} == 0 ]; then
         fi
 
         # remove default sites which would cause server to mess up
-        rm /etc/apache2/sites*/000-default.conf
-        rm /etc/apache2/sites*/default-ssl.conf
+        rm /etc/apache2/sites*/000-default.conf || echo "Safely rm"
+        rm /etc/apache2/sites*/default-ssl.conf || echo "Safely rm"
 
         cp ${SUBMITTY_REPOSITORY}/.setup/apache/submitty.conf /etc/apache2/sites-available/submitty.conf
 
@@ -532,7 +533,7 @@ if [ ${WORKER} == 0 ]; then
         cp /etc/postgresql/${PG_VERSION}/main/pg_hba.conf /etc/postgresql/${PG_VERSION}/main/pg_hba.conf.backup
         cp ${SUBMITTY_REPOSITORY}/.setup/vagrant/pg_hba.conf /etc/postgresql/${PG_VERSION}/main/pg_hba.conf
         echo "Creating PostgreSQL users"
-        su postgres -c "source ${SUBMITTY_REPOSITORY}/.setup/vagrant/db_users.sh";
+        su postgres -c "source ${SUBMITTY_REPOSITORY}/.setup/vagrant/db_users.sh" || echo "Safely create"
         echo "Finished creating PostgreSQL users"
 
         # Set timezone to UTC instead of using localtime (which is probably ET)

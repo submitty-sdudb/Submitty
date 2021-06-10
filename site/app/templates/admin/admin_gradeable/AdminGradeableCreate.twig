@@ -34,16 +34,16 @@
     <div class="option row">
         <div class="option-desc col-md-6">
             <label for="g_title">
-                <span class="option-title">Title</span>
+                <span class="option-title">题目</span>
                 <br>
-                <span class="option-alt">What is the title of this gradable?</span>
+                <span class="option-alt">作业的题目</span>
                 <br>
-                <span class="required_type">(Required)</span>
+                <span class="required_type">(必填)</span>
             </label>
         </div>
 
         <div class="option-input col-md-6">
-            <textarea onkeyup="textAreaAdjust(this)" name='title' id='g_title' class="required auto_save" style="overflow:hidden" placeholder="(Required)" required>{{action != 'new' ? gradeable.getTitle() : '' }}</textarea>
+            <textarea onkeyup="textAreaAdjust(this)" name='title' id='g_title' class="required auto_save" style="overflow:hidden" placeholder="(必填)" required>{{action != 'new' ? gradeable.getTitle() : '' }}</textarea>
         </div>
     </div>
 
@@ -52,14 +52,14 @@
 <div class="option row">
     <div class="option-desc col-md-6">
         <label for="instructions_url">
-            <span class="option-title">Assignment URL</span>
+            <span class="option-title">说明网址</span>
             <br>
-            <span class="option-alt">What is the URL to the assignment instructions? (shown to student)</span>
+            <span class="option-alt">向学生展示的作业说明URL</span>
         </label>
     </div>
     <div class="option-input col-md-6">
         <input type='text' name='instructions_url' id='instructions_url' class="auto_save"
-        value="{{ action != 'new' ? gradeable.getInstructionsUrl() : '' }}" placeholder="(Optional)" />
+        value="{{ action != 'new' ? gradeable.getInstructionsUrl() : '' }}" placeholder="(可选)" />
     </div>
 </div>
 
@@ -68,14 +68,14 @@
 <div class="option row">
     <div class="option-desc col-md-6">
         <label for="g_id">
-            <span class="option-title">Unique ID</span>
+            <span class="option-title">作业ID</span>
             <br>
-            <span class="option-alt">What is the unique id of this gradeable? (e.g., <kbd>hw01</kbd>, <kbd>lab_12</kbd>, or <kbd>midterm</kbd>)</span>
+            <span class="option-alt">作业的唯一标识符： (例如：<kbd>hw01</kbd>、<kbd>lab_12</kbd>或<kbd>midterm</kbd>)</span>
         </label>
     </div>
     <div class="option-input col-md-6">
         <input type='text' name='id' id="g_id" class="required"
-        value="{{ action != 'new' ? gradeable.getId() : '' }}" placeholder="(Required)"
+        value="{{ action != 'new' ? gradeable.getId() : '' }}" placeholder="(必填)"
         {{ action == 'edit' ? 'readonly' : 'required' }} />
     </div>
 </div>
@@ -85,11 +85,11 @@
         {% if action == 'new' or action == 'template' %}
             <!-- Gradeable Type radio buttons (readonly in edit mode) -->
             {# (VPAT) fieldset/legend required for gradeable type container radio group #}
-            <fieldset><legend><span class="option-title">Gradeable Type</span></legend>
-            <div class="option-alt"><a target=_blank href="http://submitty.org/instructor/create_edit_gradeable#types-of-gradeables">What is the type of the gradeable <i style="font-style:normal;" class="fa-question-circle"></i></a></div>
-            <span class="required_type" >(Required)</span>
+            <fieldset><legend><span class="option-title">作业类型</span></legend>
+            <div class="option-alt"><a target=_blank href="http://submitty.org/instructor/create_edit_gradeable#types-of-gradeables">什么是作业类型<i style="font-style:normal;" class="fa-question-circle"></i></a></div>
+            <span class="required_type" >(必填)</span>
         {% else %}
-            <fieldset><legend><b style='font-size:18px'>Gradeable type</b>: <span id="gradeable-type-string">{{ type_string }}</span></legend>
+            <fieldset><legend><b style='font-size:18px'>作业类型</b>: <span id="gradeable-type-string">{{ type_string }}</span></legend>
             <br />
         {% endif %}
         <div id="gradeable_type_container" {{ action == 'edit' ? 'hidden' : '' }}>
@@ -105,7 +105,7 @@
 
             <div hidden>
                 <input type='radio' id="radio_electronic_file" name="type" value="Electronic File"
-                        {{ action != 'new' and gradeable.getType() == 0 ? 'checked' : '' }}>  <label for="radio_electronic_file"> Electronic File (multiple types) </label>
+                        {{ action != 'new' and gradeable.getType() == 0 ? 'checked' : '' }}>  <label for="radio_electronic_file">电子文稿</label>
             </div>
 
             {# Real input fields to back the exposed configurations options #}
@@ -135,42 +135,42 @@
       <!-- This is only relevant to Electronic Files -->
         <div class="gradeable_type_options electronic_file" id="electronic_file">
             <fieldset>
-                <legend>Will any or all of this assignment be manually graded (e.g., by the TAs or the instructor)?</legend>
+                <legend>该作业是（部分或全部）人工批改吗？</legend>
                 <input type="radio" id="yes_ta_grade" name="ta_grading" value="true" class="bool_val auto_save date-related"
-                        {{ action != 'new' and gradeable.getTaGrading() ? 'checked' : '' }} /> <label for="yes_ta_grade">Yes</label>
+                        {{ action != 'new' and gradeable.getTaGrading() ? 'checked' : '' }} /> <label for="yes_ta_grade">是</label>
                 <input type="radio" id="no_ta_grade" name="ta_grading" value="false" class="bool_val auto_save date-related"
-                        {{ not (action != 'new' and gradeable.getTaGrading()) ? 'checked' : '' }} /> <label for="no_ta_grade">No</label>
+                        {{ not (action != 'new' and gradeable.getTaGrading()) ? 'checked' : '' }} /> <label for="no_ta_grade">否</label>
             </fieldset>
 
             {% if regrade_enabled %}
                 <fieldset id="regrade_request_enable_container">
-                    <legend>Should grade inquiries be enabled for this assignment?</legend>
+                    <legend>是否允许学生查询成绩？</legend>
                     <input type="radio" id="yes_regrade_allowed" name="regrade_allowed" value="true" class="bool_val auto_save date-related"
-                            {{ action != 'new' and gradeable.isRegradeAllowed() ? 'checked' : '' }} /> <label for="yes_regrade_allowed">Yes</label>
+                            {{ action != 'new' and gradeable.isRegradeAllowed() ? 'checked' : '' }} /> <label for="yes_regrade_allowed">是</label>
                     <input type="radio" id="no_regrade_allowed" name="regrade_allowed" value="false" class="bool_val auto_save date-related"
-                            {{ not (action != 'new' and gradeable.isRegradeAllowed()) ? 'checked' : '' }} /> <label for= "no_regrade_allowed">No</label>
+                            {{ not (action != 'new' and gradeable.isRegradeAllowed()) ? 'checked' : '' }} /> <label for= "no_regrade_allowed">否</label>
                 </fieldset>
 
                 <fieldset class="grade_inquiry_per_component_allowed" id="gi_component_enable_container">
-                    <legend>Should grade inquiries be associated with a specific component of the rubric?</legend>
+                    <legend>是否查询成绩时显示对应的评分细则？</legend>
                     <input type="radio" id="yes_grade_inquiry_per_component_allowed" name="grade_inquiry_per_component_allowed" value="true" class="bool_val auto_save"
-                            {{ gradeable.isGradeInquiryPerComponentAllowed() ? 'checked' : '' }} /> <label for="yes_grade_inquiry_per_component_allowed">Yes</label>
+                            {{ gradeable.isGradeInquiryPerComponentAllowed() ? 'checked' : '' }} /> <label for="yes_grade_inquiry_per_component_allowed">是</label>
                     <input type="radio" id="no_grade_inquiry_per_component_allowed" name="grade_inquiry_per_component_allowed" value="false" class="bool_val auto_save"
-                            {{ not gradeable.isGradeInquiryPerComponentAllowed() ? 'checked' : '' }} /> <label for= "no_grade_inquiry_per_component_allowed">No</label>
+                            {{ not gradeable.isGradeInquiryPerComponentAllowed() ? 'checked' : '' }} /> <label for= "no_grade_inquiry_per_component_allowed">否</label>
                 </fieldset>
             {% endif %}
 
             {% if forum_enabled %}
                 <div>
                     <fieldset id="discussion_grading_enable_container">
-                        <legend>Is there a discussion component for this assignment?</legend>
+                        <legend>是否开放学生讨论区？</legend>
                         <input type="radio" id="yes_discussion" name="discussion_based" value="true" class="bool_val auto_save date-related"
-                                {{ action != 'new' and gradeable.isDiscussionBased() ? 'checked' : '' }} /> <label for="yes_discussion">Yes</label>
+                                {{ action != 'new' and gradeable.isDiscussionBased() ? 'checked' : '' }} /> <label for="yes_discussion">是</label>
                         <input type="radio" id="no_discussion" name="discussion_based" value="false" class="bool_val auto_save date-related"
-                                {{ not (action != 'new' and gradeable.isDiscussionBased()) ? 'checked' : '' }} /> <label for="no_discussion">No</label>
+                                {{ not (action != 'new' and gradeable.isDiscussionBased()) ? 'checked' : '' }} /> <label for="no_discussion">否</label>
                     </fieldset>
                     <div class="discussion_id_wrapper">
-                        <label for="discussion_thread_id">What thread id(s) should be included? (separate by commas)</label>
+                        <label for="discussion_thread_id">包含哪些讨论ID？(以逗号分割)</label>
                             <input style="width: 70px" name="discussion_thread_id" id="discussion_thread_id" class="int_val auto_save" type="text"
                                    value="{{ action != 'new' ? gradeable.getStringThreadIds() : '' }}"/>
                     </div>
@@ -180,17 +180,17 @@
             <div id="team-settings-container">
                 {% if action == 'new' or action == 'template' %}
                     {# (VPAT) fieldset/legend needed for team assignment radio group #}
-                    <fieldset><legend>Is this a team assignment?</legend>
+                    <fieldset><legend>这是小组作业吗？</legend>
                 {% else %}
-                    <fieldset><legend>Team Settings:
-                    {{ gradeable.isTeamAssignment() ? '' : ' This is an individual assignment' }}</legend>
+                    <fieldset><legend>小组设置:
+                    {{ gradeable.isTeamAssignment() ? '' : '个人作业' }}</legend>
                 {% endif %}
                 <div style="{{ action == 'edit' ? 'display:none' : '' }}">
                     <input type="radio" id = "team_yes_radio" name="team_assignment" value="true"
-                            {{ action != 'new' and gradeable.isTeamAssignment() ? 'checked' : '' }}> <label for="team_yes_radio">Yes</label>
+                            {{ action != 'new' and gradeable.isTeamAssignment() ? 'checked' : '' }}> <label for="team_yes_radio">是</label>
 
                     <input type="radio" id = "team_no_radio" name="team_assignment" value ="false"
-                            {{ not (action != 'new' and gradeable.isTeamAssignment()) ? 'checked' :  '' }}> <label for="team_no_radio">No</label>
+                            {{ not (action != 'new' and gradeable.isTeamAssignment()) ? 'checked' :  '' }}> <label for="team_no_radio">否</label>
                 </div>
                 {# (VPAT) Closes fieldset for team assignment radio group #}
                 </fieldset>
@@ -199,7 +199,7 @@
             <!-- Team settings (read only in edit mode) -->
             <div class="team_assignment team_yes" id="team_yes">
 
-                <label for="team_size_max">What is the maximum team size?</label>
+                <label for="team_size_max">小组最多人数</label>
                     <input style="width: 50px" name="team_size_max" id="team_size_max" class="int_val auto_save" type="text"
                            value="{{ action != 'new' ? gradeable.getTeamSizeMax() : '3' }}"/>
 
@@ -225,11 +225,11 @@
 
             <div id="repository">
                 <fieldset>
-                    <legend>VCS Repository Details (select one)</legend>
+                    <legend>VCS设置</legend>
                     <div>
                         <input type='radio' id="vcs_radio_submitty_hosted" name="vcs_radio_buttons" value="submitty-hosted"
                             {{ action == 'new' or (action != 'new' and gradeable.getVcsHostType() == 0) ? 'checked' : '' }}
-                            {{ action != 'new' and action != 'template' ? 'disabled' : '' }}> <label for="vcs_radio_submitty_hosted">Submitty hosted – single gradeable repository</label>
+                            {{ action != 'new' and action != 'template' ? 'disabled' : '' }}> <label for="vcs_radio_submitty_hosted">网站托管：单作业</label>
 
                         <div id="vcs_submitty_url_content" style="margin-left: 5%">
                             <kbd>{{ vcs_base_url }}&#123;&#36;gradeable_id&#125;&#47;</kbd>
@@ -240,12 +240,12 @@
                     <div class="team_no">
                         <input type='radio' id="vcs_radio_submitty_hosted_set_url" name="vcs_radio_buttons" value="submitty-hosted-url"
                             {{ action != 'new' and gradeable.getVcsHostType() == 1 ? 'checked' : '' }}
-                            {{ action != 'new' and action != 'template' ? 'disabled' : '' }}> <label for="vcs_radio_submitty_hosted_set_url">Submitty hosted – choose repository name (can be used for multiple gradeables)</label>
+                            {{ action != 'new' and action != 'template' ? 'disabled' : '' }}> <label for="vcs_radio_submitty_hosted_set_url">网站托管：多作业共享</label>
 
                         <div id="vcs_submitty_set_url_content" style="margin-left: 5%">
                             {% if action == 'new' or action == 'template' %}
                                 <kbd>{{ vcs_base_url }}</kbd>
-                                <input style='width: 30%' type='text' name="vcs_url" id="vcs_submitty_url" class="required auto_save" placeholder="(Required)"
+                                <input style='width: 30%' type='text' name="vcs_url" id="vcs_submitty_url" class="required auto_save" placeholder="(必填)"
                                     aria-label="repository name" value="" required />
                                 <kbd>&#47;&#123;&#36;user_id&#125;</kbd>
                             {% else %}
@@ -256,11 +256,11 @@
 
                     <input type='radio' id="vcs_radio_public_github" name="vcs_radio_buttons" value="public-github"
                         {{ action != 'new' and gradeable.getVcsHostType() == 2 ? 'checked' : '' }}
-                        {{ action != 'new' and action != 'template' ? 'disabled' : '' }}> <label for="vcs_radio_public_github">Github hosted - public repository, students will provide URL</label> <br />
+                        {{ action != 'new' and action != 'template' ? 'disabled' : '' }}> <label for="vcs_radio_public_github">Github：开放项目，由学生提供网址</label> <br />
 
                     <input type='radio' id="vcs_radio_private_github" name="vcs_radio_buttons" value="private-github"
                         {{ action != 'new' and gradeable.getVcsHostType() == 3 ? 'checked' : '' }}
-                        {{ action != 'new' and action != 'template' ? 'disabled' : '' }}> <label for="vcs_radio_private_github">Github hosted - private repository, students will provide URL (NOTE: INCOMPLETE -- DO NOT USE)</label>
+                        {{ action != 'new' and action != 'template' ? 'disabled' : '' }}> <label for="vcs_radio_private_github">Github：私有项目，由学生提供网址</label>
                 </fieldset>
             </div>
         </div>
@@ -271,9 +271,9 @@
 <div class="option row">
     <div class="option-desc col-md-6">
         <label for="syllabus_bucket">
-            <span class="option-title">Syllabus Category</span>
+            <span class="option-title">作业形式</span>
             <br>
-            <span class="option-alt"><a target=_blank href="https://submitty.org/instructor/rainbow_grades/gradeables">What syllabus category does this item belong to? <i style="font-style:normal;" class="fa-question-circle"></i></a></span>
+            <span class="option-alt"><a target=_blank href="https://submitty.org/instructor/rainbow_grades/gradeables">什么是作业形式<i style="font-style:normal;" class="fa-question-circle"></i></a></span>
         </label>
     </div>
 
@@ -291,25 +291,25 @@
 {% if action == 'new' or action == 'template' %}
 <div class="option row">
     <div class="option-desc col-md-12">
-        <em>Note: After pressing the "Create New Gradeable" button you may not change:</em>
+        <em>注意：在点击“创建作业”按钮后，以下内容将无法修改：</em>
         <ul style="margin-left:10px">
-            <li style="margin-left:15px"><em>The unique id</em></li>
-            <li style="margin-left:15px"><em>Gradeable type (electronic file upload, checkpoints, or text)</em></li>
-            <li style="margin-left:15px"><em>Whether the students will submit as individuals or team</em></li>
-            <li style="margin-left:15px"><em>Whether the students will submit by directly uploading files or by version control</em></li>
+            <li style="margin-left:15px"><em>作业ID</em></li>
+            <li style="margin-left:15px"><em>作业类型</em></li>
+            <li style="margin-left:15px"><em>小组或个人作业</em></li>
+            <li style="margin-left:15px"><em>文件上传及VCS配置</em></li>
         </ul>
-        <em>All other settings for this gradeable may be edited.</em>
+        <em>其余所有内容均可以后续修改。</em>
     </div>
 </div>
 <div class="row">
     <input type="hidden" name="csrf_token" value="{{ csrf_token }}" />
-    <button class="btn btn-primary" type="submit" style="margin-left:10px;">Create New Gradeable</button>
+    <button class="btn btn-primary" type="submit" style="margin-left:10px;">创建作业</button>
 </div>
 {% endif %}
 
 
 <div id="alert-message" title="WARNING">
-    <p>Gradeable ID must not be blank and only contain characters <strong> a-z A-Z 0-9 _ - </strong> </p>
+    <p>作业ID不能为空，且只能包含以下字符 <strong> a-z A-Z 0-9 _ - </strong> </p>
 </div>
 
 <script>

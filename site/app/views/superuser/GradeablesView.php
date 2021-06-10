@@ -35,7 +35,7 @@ class GradeablesView extends AbstractView {
 
         $this->core->getOutput()->addInternalCss("navigation.css");
         $this->core->getOutput()->enableMobileViewport();
-        $this->core->getOutput()->addBreadcrumb("Pending Gradeables");
+        $this->core->getOutput()->addBreadcrumb("待交作业");
 
         return $this->core->getOutput()->renderTwigTemplate("superuser/Gradeables.twig", [
             "gradeable_sections" => $render_sections

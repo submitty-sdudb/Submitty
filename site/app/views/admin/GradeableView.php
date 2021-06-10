@@ -7,7 +7,7 @@ use app\libraries\Utils;
 
 class GradeableView extends AbstractView {
     public function uploadConfigForm($target_dir, $all_files, $gradeable_id, $inuse_config) {
-        $this->core->getOutput()->addBreadcrumb("upload config", $this->core->buildCourseUrl(['autograding_config']));
+        $this->core->getOutput()->addBreadcrumb("上传设置", $this->core->buildCourseUrl(['autograding_config']));
         $course = $this->core->getConfig()->getCourse();
 
         return $this->core->getOutput()->renderTwigTemplate("admin/UploadConfigForm.twig", [

@@ -105,7 +105,7 @@ class AuthenticationController extends AbstractController {
         }
         $_POST['stay_logged_in'] = (isset($_POST['stay_logged_in']));
         if (!isset($_POST['user_id']) || !isset($_POST['password'])) {
-            $msg = 'Cannot leave user id or password blank';
+            $msg = '请输入用户名及密码';
 
             $this->core->addErrorMessage($msg);
             return new MultiResponse(
@@ -118,7 +118,7 @@ class AuthenticationController extends AbstractController {
         $this->core->getAuthentication()->setPassword($_POST['password']);
         if ($this->core->authenticate($_POST['stay_logged_in']) === true) {
             Logger::logAccess($_POST['user_id'], $_COOKIE['submitty_token'], "login");
-            $msg = "Successfully logged in as " . htmlentities($_POST['user_id']);
+            $msg = "欢迎登入：" . htmlentities($_POST['user_id']);
 
             $this->core->addSuccessMessage($msg);
             return new MultiResponse(
@@ -128,7 +128,7 @@ class AuthenticationController extends AbstractController {
             );
         }
         else {
-            $msg = "Could not login using that user id or password";
+            $msg = "用户名或密码错误";
 
             $this->core->addErrorMessage($msg);
             $this->core->redirect($old);
@@ -147,7 +147,7 @@ class AuthenticationController extends AbstractController {
      */
     public function getToken() {
         if (!isset($_POST['user_id']) || !isset($_POST['password'])) {
-            $msg = 'Cannot leave user id or password blank';
+            $msg = '请输入用户名及密码';
             return MultiResponse::JsonOnlyResponse(JsonResponse::getFailResponse($msg));
         }
         $this->core->getAuthentication()->setUserId($_POST['user_id']);
@@ -157,7 +157,7 @@ class AuthenticationController extends AbstractController {
             return MultiResponse::JsonOnlyResponse(JsonResponse::getSuccessResponse(['token' => $token]));
         }
         else {
-            $msg = "Could not login using that user id or password";
+            $msg = "用户名或密码错误";
             return MultiResponse::JsonOnlyResponse(JsonResponse::getFailResponse($msg));
         }
     }
@@ -169,7 +169,7 @@ class AuthenticationController extends AbstractController {
      */
     public function invalidateToken() {
         if (!isset($_POST['user_id']) || !isset($_POST['password'])) {
-            $msg = 'Cannot leave user id or password blank';
+            $msg = '请输入用户名及密码';
             return MultiResponse::JsonOnlyResponse(JsonResponse::getFailResponse($msg));
         }
         $this->core->getAuthentication()->setUserId($_POST['user_id']);
@@ -179,7 +179,7 @@ class AuthenticationController extends AbstractController {
             return MultiResponse::JsonOnlyResponse(JsonResponse::getSuccessResponse());
         }
         else {
-            $msg = "Could not login using that user id or password";
+            $msg = "用户名或密码错误";
             return MultiResponse::JsonOnlyResponse(JsonResponse::getFailResponse($msg));
         }
     }
@@ -203,23 +203,23 @@ class AuthenticationController extends AbstractController {
             || empty($_POST['id'])
             || !$this->core->getConfig()->isCourseLoaded()
         ) {
-            $msg = 'Missing value for one of the fields';
+            $msg = '校验不完整';
             return MultiResponse::JsonOnlyResponse(JsonResponse::getFailResponse($msg));
         }
         $this->core->getAuthentication()->setUserId($_POST['user_id']);
         $this->core->getAuthentication()->setPassword($_POST['password']);
         if ($this->core->getAuthentication()->authenticate() !== true) {
-            $msg = "Could not login using that user id or password";
+            $msg = "用户名或密码错误";
             return MultiResponse::JsonOnlyResponse(JsonResponse::getFailResponse($msg));
         }
 
         $user = $this->core->getQueries()->getUserById($_POST['user_id']);
         if ($user === null) {
-            $msg = "Could not find that user for that course";
+            $msg = "未找到对应用户";
             return MultiResponse::JsonOnlyResponse(JsonResponse::getFailResponse($msg));
         }
         elseif ($user->accessFullGrading()) {
-            $msg = "Successfully logged in as {$_POST['user_id']}";
+            $msg = "欢迎登入：{$_POST['user_id']}";
             return MultiResponse::JsonOnlyResponse(JsonResponse::getSuccessResponse(['message' => $msg, 'authenticated' => true]));
         }
 
@@ -232,16 +232,16 @@ class AuthenticationController extends AbstractController {
 
         if ($gradeable !== null && $gradeable->isTeamAssignment()) {
             if (!$this->core->getQueries()->getTeamById($_POST['id'])->hasMember($_POST['user_id'])) {
-                $msg = "This user is not a member of that team.";
+                $msg = "用户不在组织内";
                 return MultiResponse::JsonOnlyResponse(JsonResponse::getFailResponse($msg));
             }
         }
         elseif ($_POST['user_id'] !== $_POST['id']) {
-            $msg = "This user cannot check out that repository.";
+            $msg = "用户无权访问该项目";
             return MultiResponse::JsonOnlyResponse(JsonResponse::getFailResponse($msg));
         }
 
-        $msg = "Successfully logged in as {$_POST['user_id']}";
+        $msg = "欢迎登入：{$_POST['user_id']}";
         return MultiResponse::JsonOnlyResponse(JsonResponse::getSuccessResponse(['message' => $msg, 'authenticated' => true]));
     }
 }

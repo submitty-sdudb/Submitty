@@ -887,7 +887,7 @@ class ForumController extends AbstractController {
         // use the default thread id
         $thread_id = -1;
         $pageNumber = 0;
-        $this->core->getOutput()->addBreadcrumb("Discussion Forum");
+        $this->core->getOutput()->addBreadcrumb("讨论区");
         $threads = $this->getSortedThreads($category_ids, $max_threads, $show_deleted, $show_merged_thread, $thread_status, $unread_threads, $pageNumber, $thread_id);
 
         return $this->core->getOutput()->renderOutput('forum\ForumThread', 'showFullThreadsPage', $threads, $category_ids, $show_deleted, $show_merged_thread, $pageNumber);

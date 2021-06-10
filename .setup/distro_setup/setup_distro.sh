@@ -41,7 +41,7 @@ fi
 if [ ${VAGRANT} == 1 ]; then
     # Ubuntu/Debian share this stuff, CentOS does not
     if [ -d /etc/update-motd.d ]; then
-        chmod -x /etc/update-motd.d/*
+        chmod -x /etc/update-motd.d/* || echo "Safely chmod"
         chmod +x /etc/update-motd.d/00-header
     fi
     if [ -f /usr/share/landscape/landscape-sysinfo.wrapper ]; then
@@ -99,3 +99,5 @@ ${DATABASE_LINE}
 " > /etc/motd
     chmod 644 /etc/motd
 fi
+
+CURRENT_DIR="${SUBMITTY_REPOSITORY}"

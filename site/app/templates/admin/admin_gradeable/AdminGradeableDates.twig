@@ -1,6 +1,6 @@
 <div id="gradeable-dates">
     <input name="ta_view_start_date" id="date_ta_view" class="date_picker" type="text" value="{{ gradeable.getTaViewStartDate()|date(date_format, timezone_string) }}">
-    <label for="date_ta_view">TA Beta Testing Date (visible to TAs)</label>
+    <label for="date_ta_view">助教测试日期</label>
 
     <br />
 
@@ -8,80 +8,77 @@
     <div class="electronic_file electronic_file_dates">
         <div class="team_yes team_yes_dates">
             <input name="team_lock_date" id="date_team_lock" class="date_picker" type="text" value="{{ gradeable.getTeamLockDate()|date(date_format, timezone_string) }}">
-            <label for="date_team_lock">Team Lock Date (Instructors can still manually manage teams)</label>
+            <label for="date_team_lock">队伍锁定日期（老师在之后仍可手动修改）</label>
 
             <br />
         </div>
 
         <input id="date_submit" name="submission_open_date" class="date_picker" type="text" value="{{ gradeable.getSubmissionOpenDate()|date(date_format, timezone_string) }}">
-        <label for="date_submit">Submission Open Date (submission available to students)</label>
+        <label for="date_submit">允许提交日期</label>
 
         <br />
 
         <div id="due_date_options_container">
             <div>
                 <fieldset>
-                    <legend>Will this assignment have a due date?</legend>
-                    <input id="has_due_date_yes" name="has_due_date" value="true" type="radio" {{ gradeable.hasDueDate() ? 'checked' : '' }}/><label for="has_due_date_yes">Yes</label>
-                    <input id="has_due_date_no" name="has_due_date" value="false" type="radio" {{ not gradeable.hasDueDate() ? 'checked' : '' }}/><label for="has_due_date_no">No</label>
+                    <legend>这个作业有DDL吗</legend>
+                    <input id="has_due_date_yes" name="has_due_date" value="true" type="radio" {{ gradeable.hasDueDate() ? 'checked' : '' }}/><label for="has_due_date_yes">有</label>
+                    <input id="has_due_date_no" name="has_due_date" value="false" type="radio" {{ not gradeable.hasDueDate() ? 'checked' : '' }}/><label for="has_due_date_no">无</label>
                 </fieldset>
             </div>
 
             <div id="due_date_container" {{ gradeable.hasDueDate() ? '' : 'hidden' }}>
                 <input id="date_due" name="submission_due_date" class="date_picker" type="text" value="{{ gradeable.getSubmissionDueDate()|date(date_format, timezone_string) }}">
-                <label for="date_due">Due Date</label>
+                <label for="date_due">DDL</label>
             </div>
         </div>
     </div>
 
     <div class="manual_grading manual_grading_dates">
         <input name="grade_start_date" id="date_grade" class="date_picker" type="text" value="{{ gradeable.getGradeStartDate()|date(date_format, timezone_string) }}">
-        <label for="date_grade">TA/Instructor Manual Grading Open Date (grading may begin)</label>
+        <label for="date_grade">打分起始日期</label>
 
         <br />
 
         <input name="grade_due_date" id="date_grade_due" class="date_picker" type="text" value="{{ gradeable.getGradeDueDate()|date(date_format, timezone_string) }}">
-        <label for="date_grade_due">TA/Instructor Manual Grading Due Date</label>
+        <label for="date_grade_due">打分结束日期</label>
 
         <br />
     </div>
 
     <input name="grade_released_date" id="date_released" class="date_picker" type="text" value="{{ gradeable.getGradeReleasedDate()|date(date_format, timezone_string) }}">
-    <label for="date_released">Grades Released Date (grades will be visible to students)</label>
+    <label for="date_released">公布分数日期</label>
 
     <br />
 
     <div class="electronic_file electronic_file_dates">
         <div class="grade_inquiry_date" {{ regrade_allowed != true or regrade_enabled != true ? 'hidden' : '' }}>
             <input name="grade_inquiry_start_date" id="date_grade_inquiry_start" class="date_picker grade_inquiry_start_date" type="text" value="{{ gradeable.getGradeInquiryStartDate()|date(date_format, timezone_string) }}">
-            <label for="date_grade_inquiry_start">Grade Inquiry Start Date (Grade Inquiries may begin)</label>
+            <label for="date_grade_inquiry_start">分数查询起始日期</label>
 
             <br />
 
             <input name="grade_inquiry_due_date" id="date_grade_inquiry_due" class="date_picker grade_inquiry_due_date" type="text" value="{{ gradeable.getGradeInquiryDueDate()|date(date_format, timezone_string) }}">
-            <label for="date_grade_inquiry_due">Grade Inquiry Due Date (Grade Inquiries must be initiated by this date)</label>
+            <label for="date_grade_inquiry_due">分数查询结束日期</label>
         </div>
 
         <div id="late_days_options_container" {{ gradeable.hasDueDate() and gradeable.isStudentSubmit() ? '' : 'hidden' }}>
             <fieldset>
-                <legend>Should submissions be accepted after the due date?</legend>
+                <legend>允许在DDL后提交作业吗</legend>
                 <input type="radio" id = "yes_late_submission" name="late_submission_allowed" value="true"
-                        {{ action != 'new' and gradeable.isLateSubmissionAllowed() ? 'checked' : '' }}> <label for="yes_late_submission">Yes</label>
+                        {{ action != 'new' and gradeable.isLateSubmissionAllowed() ? 'checked' : '' }}> <label for="yes_late_submission">允许</label>
 
                 <input type="radio" id = "no_late_submission" name="late_submission_allowed" value ="false"
-                        {{ not (action != 'new' and gradeable.isLateSubmissionAllowed()) ? 'checked' :  '' }}> <label for="no_late_submission">No</label>
+                        {{ not (action != 'new' and gradeable.isLateSubmissionAllowed()) ? 'checked' :  '' }}> <label for="no_late_submission">拒绝</label>
             </fieldset>
             <div class="yes-late-submission">
-                <label for="late_days">How many late days may students use on this assignment?</label>
+                <label for="late_days">允许学生迟交多少天：</label>
                 <input style="width: 50px" id="late_days" name="late_days" class="int_val" type="text" value="{{ gradeable.getLateDays() }}"/>
 
                 <br />
 
                 <p style="max-width:600px;" id="late-days-message">
-                Note: Submissions received after the deadline will be automatically recorded as a zero if late days are not allowed
-                    for this assignment (or the student does not have sufficient late days to cover the submission) and no excused
-                    absence extension is entered for this student for this gradeable. See
-                    <a target=_blank href="http://submitty.org/student/late_days">Late Days & Extensions. <i style="font-style:normal;" class="fa-question-circle"></i></a>
+                注意：如果学生在允许的迟交范围之后提交作业，并且没有为其批准请假信息，系统将自动为其打0分。详情请查看<a target=_blank href="http://submitty.org/student/late_days">迟交与延期<i style="font-style:normal;" class="fa-question-circle"></i></a>
                 </p>
             </div>
         </div>
@@ -89,12 +86,12 @@
 
     <br />
 
-    <input type="button" class="btn btn-default key_to_click" tabindex="0" value="Show All Dates" id="show_all_dates" onclick="showAllDates()" />
-    <input type="button" class="btn btn-primary key_to_click" tabindex="0" value="Hide Irrelevant Dates" id="hide_dates" onclick="hideDates()" hidden/>
+    <input type="button" class="btn btn-default key_to_click" tabindex="0" value="显示所有日期" id="show_all_dates" onclick="showAllDates()" />
+    <input type="button" class="btn btn-primary key_to_click" tabindex="0" value="隐藏无关日期" id="hide_dates" onclick="hideDates()" hidden/>
 
     <br />
-    <span id="gray_date_warning" hidden>Note: grayed-out dates are for debugging & consistency checks.  These dates are not relevant with your current assignment configuration.</span>
-    <div id="timezone-container"><i>Time Zone: {{ timezone_string }}</i></div>
+    <span id="gray_date_warning" hidden>注意：灰色日期用于Debug检查，与当前的作业设置无关。</span>
+    <div id="timezone-container"><i>时区: {{ timezone_string }}</i></div>
 </div>
 
 <script>

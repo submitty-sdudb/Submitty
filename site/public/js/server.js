@@ -69,22 +69,22 @@ function changeDiffView(div_name, gradeable_id, who_id, version, index, autochec
     var expected_div = $(expected_div_name).children()[0];
     var list_white_spaces = {};
     $('#'+helper_id).empty();
-    if($("#show_char_"+index+"_"+autocheck_cnt).text() == "Visualize whitespace characters"){
+    if($("#show_char_"+index+"_"+autocheck_cnt).text() == "显示空格"){
         $("#show_char_"+index+"_"+autocheck_cnt).removeClass('btn-default');
         $("#show_char_"+index+"_"+autocheck_cnt).addClass('btn-primary');
-        $("#show_char_"+index+"_"+autocheck_cnt).html("Display whitespace/non-printing characters as escape sequences");
+        $("#show_char_"+index+"_"+autocheck_cnt).html("显示非打印字符");
         list_white_spaces['newline'] = '&#9166;';
         var option = 'unicode'
     }
-    else if($("#show_char_"+index+"_"+autocheck_cnt).text() == "Display whitespace/non-printing characters as escape sequences") {
-        $("#show_char_"+index+"_"+autocheck_cnt).html("Original View");
+    else if($("#show_char_"+index+"_"+autocheck_cnt).text() == "显示非打印字符") {
+        $("#show_char_"+index+"_"+autocheck_cnt).html("原始状态");
         list_white_spaces['newline'] = '\\n';
         var option = 'escape'
     }
     else {
         $("#show_char_"+index+"_"+autocheck_cnt).removeClass('btn-primary');
         $("#show_char_"+index+"_"+autocheck_cnt).addClass('btn-default');
-        $("#show_char_"+index+"_"+autocheck_cnt).html("Visualize whitespace characters");
+        $("#show_char_"+index+"_"+autocheck_cnt).html("显示空格");
         var option = 'original'
     }
     //Insert actual and expected one at a time
@@ -692,8 +692,8 @@ function versionChange(url, sel){
 
 function checkVersionChange(days_late, late_days_allowed){
     if(days_late > late_days_allowed){
-        var message = "The max late days allowed for this assignment is " + late_days_allowed + " days. ";
-        message += "You are not supposed to change your active version after this time unless you have permission from the instructor. Are you sure you want to continue?";
+        var message = "老师为本作业设置的最大迟交天数为" + late_days_allowed + "天";
+        message += "如果没有老师的允许，你不应在此时间之后切换提交版本。你确定要切换吗？";
         return confirm(message);
     }
     return true;

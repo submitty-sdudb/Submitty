@@ -43,11 +43,11 @@ class AdminGradeableController extends AbstractController {
         'none (for practice only)'];
 
     const gradeable_type_strings = [
-        'checkpoint' => 'Checkpoints (simple data entry: full/half/no credit)',
-        'numeric' => 'Numeric/Text (simple data entry: integer or floating point and/or short strings)',
-        'electronic_hw' => 'Students will submit one or more files by direct upload to the Submitty website',
-        'electronic_hw_vcs' => 'Students will submit by committing files to a version control system (VCS) repository',
-        'electronic_exam' => 'TA/Instructor will (bulk) upload scanned .pdf for online manual grading'
+        'checkpoint' => '检查点(全部、中期、无)',
+        'numeric' => '文本与数字',
+        'electronic_hw' => '上传文件到课题网站',
+        'electronic_hw_vcs' => '上传文件到版本控制系统（VCS）',
+        'electronic_exam' => '由助教或老师直接提交分数'
     ];
 
     /**
@@ -57,7 +57,7 @@ class AdminGradeableController extends AbstractController {
      * @Route("/courses/{_semester}/{_course}/gradeable", methods={"GET"})
      */
     public function newPage($template_id = null) {
-        $this->core->getOutput()->addBreadcrumb("New Gradeable");
+        $this->core->getOutput()->addBreadcrumb("创建作业");
 
         $gradeable = $template_id ? $this->core->getQueries()->getGradeableConfig($template_id) : null;
 
@@ -85,7 +85,7 @@ class AdminGradeableController extends AbstractController {
 
     //view the page with pulled data from the gradeable to be edited
     private function editPage(Gradeable $gradeable, $semester, $course, $nav_tab = 0) {
-        $this->core->getOutput()->addBreadcrumb('Edit Gradeable');
+        $this->core->getOutput()->addBreadcrumb('编辑作业');
 
         // Serialize the components for numeric/checkpoint rubrics
         $gradeable_components_enc = array_map(function (Component $c) {

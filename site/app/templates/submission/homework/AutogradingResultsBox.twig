@@ -5,11 +5,11 @@
         {% if in_queue or in_progress_grading %}
             {% if in_progress_grading %}
                 <p class="red-message">
-                    This submission is currently being graded.
+                    正在打分，请稍候…
                 </p>
             {% else %}
                 <p class="red-message">
-                    This submission is currently in the queue to be graded. Your submission is number {{ queue_pos }} out of {{ queue_total }}.
+                    正在排队…当前排队信息：{{ queue_pos }}/{{ queue_total }}
                 </p>
             {% endif %}
             <script>
@@ -17,7 +17,7 @@
             </script>
         {% elseif results is not defined %}
             <p class="red-message">
-                Something went wrong when grading this submission. Please contact your instructor about this.
+                打分出错，请联系老师。
             </p>
             <script>
                 (() => {

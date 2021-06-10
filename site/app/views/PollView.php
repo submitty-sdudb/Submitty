@@ -10,7 +10,7 @@ use app\models\PollModel;
 class PollView extends AbstractView {
 
     public function showPollsInstructor($todays_polls, $older_polls, $future_polls, $dropdown_states) {
-        $this->core->getOutput()->addBreadcrumb("Polls");
+        $this->core->getOutput()->addBreadcrumb("投票");
         $this->core->getOutput()->addInternalCss('polls.css');
         $this->core->getOutput()->addInternalJs('polls-dropdown.js');
         $this->core->getOutput()->enableMobileViewport();
@@ -27,7 +27,7 @@ class PollView extends AbstractView {
     }
 
     public function showPollsStudent($todays_polls, $older_polls) {
-        $this->core->getOutput()->addBreadcrumb("Polls");
+        $this->core->getOutput()->addBreadcrumb("投票");
         $this->core->getOutput()->addInternalCss('polls.css');
         $this->core->getOutput()->addInternalJs('polls-dropdown.js');
         $this->core->getOutput()->enableMobileViewport();
@@ -41,8 +41,8 @@ class PollView extends AbstractView {
     }
 
     public function showNewPollPage() {
-        $this->core->getOutput()->addBreadcrumb("Polls", $this->core->buildCourseUrl(["polls"]));
-        $this->core->getOutput()->addBreadcrumb("New Poll");
+        $this->core->getOutput()->addBreadcrumb("投票", $this->core->buildCourseUrl(["polls"]));
+        $this->core->getOutput()->addBreadcrumb("新建投票");
         $this->core->getOutput()->addInternalCss('polls.css');
         $this->core->getOutput()->addVendorJs(FileUtils::joinPaths('flatpickr', 'flatpickr.min.js'));
         $this->core->getOutput()->addVendorCss(FileUtils::joinPaths('flatpickr', 'flatpickr.min.css'));
@@ -58,8 +58,8 @@ class PollView extends AbstractView {
     }
 
     public function showPollStudent($poll) {
-        $this->core->getOutput()->addBreadcrumb("Polls", $this->core->buildCourseUrl(["polls"]));
-        $this->core->getOutput()->addBreadcrumb("View Poll");
+        $this->core->getOutput()->addBreadcrumb("投票", $this->core->buildCourseUrl(["polls"]));
+        $this->core->getOutput()->addBreadcrumb("查看投票");
         $this->core->getOutput()->addInternalCss('polls.css');
         $this->core->getOutput()->enableMobileViewport();
         $image_path = $poll->getImagePath();
@@ -78,8 +78,8 @@ class PollView extends AbstractView {
     }
 
     public function editPoll(PollModel $poll) {
-        $this->core->getOutput()->addBreadcrumb("Polls", $this->core->buildCourseUrl(["polls"]));
-        $this->core->getOutput()->addBreadcrumb("Edit Poll");
+        $this->core->getOutput()->addBreadcrumb("投票", $this->core->buildCourseUrl(["polls"]));
+        $this->core->getOutput()->addBreadcrumb("编辑投票");
         $this->core->getOutput()->addInternalCss('polls.css');
         $this->core->getOutput()->addVendorJs(FileUtils::joinPaths('flatpickr', 'flatpickr.min.js'));
         $this->core->getOutput()->addVendorCss(FileUtils::joinPaths('flatpickr', 'flatpickr.min.css'));
@@ -95,8 +95,8 @@ class PollView extends AbstractView {
     }
 
     public function viewResults($poll, $results) {
-        $this->core->getOutput()->addBreadcrumb("Polls", $this->core->buildCourseUrl(["polls"]));
-        $this->core->getOutput()->addBreadcrumb("View Results");
+        $this->core->getOutput()->addBreadcrumb("投票", $this->core->buildCourseUrl(["polls"]));
+        $this->core->getOutput()->addBreadcrumb("查看结果");
         $this->core->getOutput()->addInternalCss('polls.css');
         $this->core->getOutput()->addVendorJs(FileUtils::joinPaths('plotly', 'plotly.js'));
         $this->core->getOutput()->enableMobileViewport();

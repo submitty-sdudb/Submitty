@@ -1,13 +1,12 @@
 {% extends 'generic/Popup.twig' %}
 {% block popup_id %}delete-gradeable-form{% endblock %}
-{% block title %}Delete Gradeable{% endblock %}
+{% block title %}删除作业{% endblock %}
 {% block body %}
-    <p>Note: A gradeable can only be deleted if it has no formed student teams,
-	it has no student submission files, it has no TA grading data, and it does not have VCS repos created.
+    <p>注意：只有没有学生分组、没有已提交的作业、没有打分数据且没有VCS创建过的作业可被删除。
     </p>
     <br />
     <input type="hidden" name="csrf_token" value="{{ csrf_token }}" />
-    Are you sure you want to delete
+    你确定要删除吗？
     <div id="delete-gradeable-message">
     </div>
 {% endblock %}
@@ -18,5 +17,5 @@
 {% endblock %}
 {% block buttons %}
     {{ block('close_button') }}
-    <input class="btn btn-danger" type="submit" value="Delete">
+    <input class="btn btn-danger" type="submit" value="删除">
 {% endblock %}

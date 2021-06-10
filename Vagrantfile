@@ -48,6 +48,16 @@ Vagrant.configure(2) do |config|
   # that one) as well as making sure all non-primary ones have "autostart: false" set
   # so that when we do "vagrant up", it doesn't spin up those machines.
 
+  if Vagrant.has_plugin?("vagrant-vbguest")
+    config.vbguest.auto_update = false  
+  end
+
+  if Vagrant.has_plugin?("vagrant-proxyconf")
+    config.proxy.http = "http://192.168.199.123:7890"
+    config.proxy.https="http://192.168.199.123:7890"
+    config.proxy.no_proxy="localhost,127.0.0.1"
+  end
+
   # Our primary development target, this is what RPI uses as of Fall 2018
   config.vm.define 'ubuntu-18.04', primary: true do |ubuntu|
     ubuntu.vm.box = 'bento/ubuntu-18.04'
@@ -111,6 +121,6 @@ Vagrant.configure(2) do |config|
   if ARGV.include?('ssh')
     config.ssh.username = 'root'
     config.ssh.password = 'vagrant'
-    config.ssh.insert_key = 'true'
+    config.ssh.insert_key = false
   end
 end

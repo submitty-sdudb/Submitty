@@ -6,13 +6,13 @@
 {% endif %}
 
 {% if has_overridden_grades %}
-    <div class='content overridden_message'><p>Please see your instructor if you have for questions about your grade for this assignment</p></div>
+    <div class='content overridden_message'><p>如对成绩有疑问，请联系老师</p></div>
 {% endif %}
 
 <div class="content" id="gradeable-submission-cont">
     <header id="gradeable-info">
         <h1>
-            New submission for: {{ gradeable_name }}
+            提交{{ gradeable_name }}：
             {% if gradeable_url|trim != "" %}
                 <a class="external" href="{{ gradeable_url }}" target="_blank" aria-label="Go to instructions for {{ gradeable_name }}">
                     <i class="fas fa-external-link-alt"></i>
@@ -24,7 +24,7 @@
                 <div id="gradeable-progress">
                     <div id="gradeable-progress-bar"></div>
                 </div>
-                <h2 id="time-remaining-text">Your Time Remaining: </h2>
+                <h2 id="time-remaining-text">剩余时间：</h2>
             </div>
 
         {% endif %}
@@ -33,51 +33,51 @@
 
             <div id="gradeable-info-due-dates">
                 <h2>
-                    Due: {{ due_date|date(date_time_format) }}
+                    DDL: {{ due_date|date(date_time_format) }}
                     {% if diff_time_zone %}
-                        <i>(Local Time)</i>
+                        <i>(当地时间)</i>
                     {% endif %}
                 </h2>
 
                 {% if diff_time_zone %}
-                    <h2>{{ due_date|date(date_time_format, server_time_zone_string) }} <i>(Server Time)</i></h2>
+                    <h2>{{ due_date|date(date_time_format, server_time_zone_string) }} <i>(服务器时间)</i></h2>
                 {% endif %}
-                <h2 id="gradeable-time-remaining-text">Gradeable Time Remaining: </h2>
+                <h2 id="gradeable-time-remaining-text">作业剩余时间：</h2>
             </div>
         {% endif %}
         <div class="loading-bar-wrapper">
-            <span>Upload progress: <span id="loading-bar-percentage"></span></span>
+            <span>上传进度<span id="loading-bar-percentage"></span></span>
             <progress id="loading-bar" value="0" ></progress>
         </div>
     </header>
 
     {% if part_names|length > 1 and one_part_only %}
         <h4 style="color: red;">
-            Please drag and drop your files into only one area below. Files submitted to additional areas will not be graded.
+            请将文件拖入此部分，否则会上传失败。
         </h4>
     {% endif %}
 
     {% if show_no_late_submission_warning %}
-        <i class="red-message">Warning, you are making a late submission for a gradeable without late submissions enabled!</i>
+        <i class="red-message">注意，你正在迟交一份不允许迟交的作业！</i>
     {% endif %}
 
     {# Admin submission type selector #}
     {% if core.getUser().accessFullGrading() %}
         <form id="submission-form" method="post">
             <fieldset id="submission-mode">
-                <legend> Select submission mode: </legend>
+                <legend>选择上传模式</legend>
                 <label for="radio-normal">
                     <input type='radio' id="radio-normal" name="submission_type" checked="checked">
-                    Normal Submission
+                    普通提交
                 </label>
                 <label for="radio-student">
                     <input type='radio' id="radio-student" name="submission_type">
-                    Make Submission for a Student
+                    为学生提交
                 </label>
                 {% if part_names|length == 1 and not is_vcs %}
                     <label for="radio-bulk">
                         <input type='radio' id="radio-bulk" name="submission_type">
-                        Bulk PDF Upload
+                        批量上传
                         <a aria-label="Bulk PDF Upload Help" href = "https://submitty.org/instructor/bulk_pdf_upload" target="_blank">
                             <i title="Bulk PDF Upload Help" class="far fa-question-circle"></i>
                         </a>
@@ -86,7 +86,7 @@
             </fieldset>
             <div id="user-id-input" class="hide">
                 <div class="sub">
-                    Note: This <i>permanently</i> affects the student's submissions, so please use with caution.
+                    注意：这会<i>永久</i>影响学生已上传的版本，请谨慎使用！
                 </div>
                 <div class="sub">
                     <input type="hidden" name="csrf_token" value="{{ csrf_token }}" />
@@ -112,12 +112,12 @@
 	                    <i title="Split by QR Code Help" class="far fa-question-circle"></i></a>
                     </span>
 
-                    <label id="pages-prompt" for="num_pages">Split by Page Count:</label>
+                    <label id="pages-prompt" for="num_pages">按页数拆分：</label>
                     <input type="number" id= "num_pages" placeholder="required"/>
                     <input type="text" id="qr_prefix" placeholder="Prefix (optional)" aria-label="QR Prefix (Optional)" />
                     <input type="text" id="qr_suffix" placeholder="Suffix (optional)" aria-label="QR Suffix (Optional)" />
                     <div id="expected-num-box">
-                        <label for= "expected-pages-input"> Expected Number of pages per PDF: </label>
+                        <label for= "expected-pages-input">每个PDF文件的页数：</label>
                         <input id= "expected-pages-input" placeholder="e.g. 1-5, 8, 11-13" onchange="highlightPageCount()" />
                     </div>
                 </div>
@@ -252,13 +252,13 @@
 
     {% if is_vcs %}
         {% if vcs_host_type == 0 or vcs_host_type == 1 %}
-            <h3>To access your Repository:</h3>
-            <span><em>Note: There may be a delay before your repository is prepared, please refer to assignment instructions.</em></span><br />
+            <h3>访问你的项目：</h3>
+            <span><em>注意：可能需要一段时间初始化你的项目，详情请查阅作业信息。</em></span><br />
             <samp>git  clone  {{ repository_path }}  SPECIFY_TARGET_DIRECTORY</samp>
         {% endif %}
 
         {% if vcs_host_type == 2 or vcs_host_type == 3 %}
-            <h3>Please enter your GitHub URL: </h3>
+            <h3>输入你的项目GitHub URL: </h3>
 
             GitHub URL: &nbsp;&nbsp; <kbd>https://www.github.com/</kbd>
             <input type="text" id="github-user-id" name="git_user_id" class="required github-id" value="{{ github_user_id }}" placeholder="user_name"/>
@@ -266,9 +266,9 @@
             <input type="text" id="github-repo-id" name="git_repo_id" class="required github-id" value="{{ github_repo_id }}" placeholder="repo_name"/>
 
             {% if vcs_host_type == 2 %}
-            Note: This should be a <em>public repository</em>, visible to everyone.
+            注意：这应当是一个<em>公开项目</em>，能被所有人访问
             {% else %}
-            Note: If this is not a <em>public repository</em>, please ensure that you have granted read access to INCOMPLETE! FIXME! SPECIAL USER.
+            注意：如果这不是<em>公开项目</em>，请确保授予老师与助教访问权限
             {% endif %}
 
         {% endif %}
@@ -303,19 +303,19 @@
                 >
                     <h2 class="label" id="label{{ loop.index }}">
                         {% if part_names|length > 1 %}
-                            Drag your {{ part }} file(s) here or click to open file browser
+                            在这里拖放{{ part }}文件或点击打开上传窗口
                         {% else %}
-                            Drag your file(s) here or click to open file browser
+                            在这里拖放文件或点击打开上传窗口
                         {% endif %}
                     </h2>
                     <input type="file" name="files" id="input-file{{ loop.index }}" class="hide" onchange="addFilesFromInput({{ loop.index }})" multiple aria-label="Select Files to upload" />
                     <table class="file-upload-table" id="file-upload-table-{{ loop.index }}">
                       <tr style="background:transparent; display:none;">
-                        <th>File Name:</th>
-                        <th>Size:</th>
+                        <th>文件名:</th>
+                        <th>大小:</th>
                       </tr>
                     </table>
-                    <p>Maximum allowed number of files to be uploaded is {{ max_file_uploads }}.</p>
+                    <p>最多允许上传{{ max_file_uploads }}个文件.</p>
                 </div>
             {% endfor %}
         </div>
@@ -324,7 +324,7 @@
         {% if student_page %}
             <form id="pdfPageStudent">
                 <div class="sub">
-                    <div>Enter the page number that corresponds to each question. If the answer spans multiple pages, enter the page the answer starts on.</div>
+                    <div>输入每个问题对应的页码。如果存在跨页回答，则只需输入起始页码</div>
                     {% for component_name in component_names %}
                         <div>{{ component_name }}: <input type="number" id="page_{{ loop.index0 }}" min="1"></div>
                     {% endfor %}
@@ -339,13 +339,13 @@
             </p>
         </div>
 
-        <button type="button" id="submit" class="btn btn-success">Submit</button>
+        <button type="button" id="submit" class="btn btn-success">提交</button>
 
         {% if part_names is not empty %}
-            <button type="button" id="startnew" class="btn btn-primary">Clear</button>
+            <button type="button" id="startnew" class="btn btn-primary">清空</button>
 
             {% if display_version == highest_version and display_version > 0 %}
-                <button type="button" id= "getprev" class="btn btn-primary">Use Most Recent Submission</button>
+                <button type="button" id= "getprev" class="btn btn-primary">使用最近一次提交</button>
                 <script>
                     $(function() {
                         setUsePrevious();

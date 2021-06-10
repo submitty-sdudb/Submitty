@@ -13,7 +13,7 @@ Required Parameters:
         <strong id="autograding_total" class="badge {{ functions.getBadgeStyle(auto_grading_earned, auto_grading_total, auto_grading_complete) }}">
             {{ auto_grading_earned is defined ? auto_grading_earned|round(decimal_precision) : '&minus;' }} / {{ auto_grading_total|round(decimal_precision) }}
         </strong>
-        <strong>Autograding Total</strong>
+        <strong>自动打分合计</strong>
     </div>
 {% endif %}
 {% if ta_grading_total is defined %}
@@ -21,7 +21,7 @@ Required Parameters:
         <strong id="grading_total" class="badge {{ functions.getBadgeStyle(ta_grading_earned, ta_grading_total, ta_grading_complete) }}">
             {{ ta_grading_earned is defined ? ta_grading_earned|round(decimal_precision) : '&minus;' }} / {{ ta_grading_total|round(decimal_precision) }}
         </strong>
-        <strong>Manual Grading Total</strong>
+        <strong>人工打分合计</strong>
     </div>
 {% endif %}
 {% if show_total %}
@@ -33,6 +33,6 @@ Required Parameters:
         <strong id="score_total" class="badge {{ functions.getBadgeStyle(total_earned, (ta_grading_total + auto_grading_total), ta_grading_complete) }}">
             {{ total_earned is defined ? total_earned|round(decimal_precision) : '&minus;' }} / {{ (ta_grading_total + auto_grading_total)|round(decimal_precision) }}
         </strong>
-        <strong>Total</strong>
+        <strong>合计</strong>
     </div>
 {% endif %}

@@ -6,7 +6,7 @@ use app\views\AbstractView;
 
 class ReportView extends AbstractView {
     public function showReportUpdates($grade_summaries_last_run) {
-        $this->core->getOutput()->addBreadcrumb('Grade Reports');
+        $this->core->getOutput()->addBreadcrumb('得分报告');
         $this->core->getOutput()->addInternalCss('grade-report.css');
         return $this->core->getOutput()->renderTwigTemplate("admin/Report.twig", [
             'summaries_url' => $this->core->buildCourseUrl(['reports', 'summaries']),
@@ -17,7 +17,7 @@ class ReportView extends AbstractView {
     }
 
     public function showFullGradebook($grade_file) {
-        $this->core->getOutput()->addBreadcrumb('Gradebook');
+        $this->core->getOutput()->addBreadcrumb('得分表');
 
         $display_rainbow_grades_summary = $this->core->getConfig()->displayRainbowGradesSummary();
 

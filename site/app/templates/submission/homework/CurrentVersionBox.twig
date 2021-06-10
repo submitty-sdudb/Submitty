@@ -4,12 +4,12 @@
 {% if hide_submitted_files == false or team_assignment == true or hide_version_and_test_details == false %}
     <div class="content">
         {% if team_assignment %}
-            <h3>Team: {{ team_members }}</h3><br />
+            <h3>小组: {{ team_members }}</h3><br />
         {% endif %}
 
         {% if hide_version_and_test_details == false %}
             <div id="version-cont">
-                <h3 class='label' id="submission_header">Select Submission Version:</h3>
+                <h3 class='label' id="submission_header">选择提交版本:</h3>
                 {% include 'grading/VersionChoice.twig' with({
                     'on_change': "versionChange('" ~ view_version_url ~ "', this)"
                 }) %}
@@ -19,14 +19,14 @@
                     {% if display_version == active_version %}
                         <form method="post" action="{{ cancel_url }}">
                             <input type='hidden' name="csrf_token" value="{{ csrf_token }}" />
-                            <input type="submit" id="do_not_grade" class="btn btn-default" value="Do Not Grade This Assignment">
+                            <input type="submit" id="do_not_grade" class="btn btn-default" value="不要为本版本打分">
                         </form>
                     {% else %}
                         <form method="post"
                               onsubmit='return checkVersionChange({{ display_version_days_late }},{{ allowed_late_days }})'
                               action="{{ change_version_url }}">
                             <input type='hidden' name="csrf_token" value="{{ csrf_token }}" />
-                            <input type="submit" id="version_change" class="btn btn-primary" value="Grade This Version">
+                            <input type="submit" id="version_change" class="btn btn-primary" value="使用这个版本">
                         </form>
                     {% endif %}
                 {% endif %}
@@ -59,29 +59,29 @@
             <div class="sub submission-message">
                 {% if active_version == 0 and display_version == 0 %}
                     <p class="red-message">
-                        Note: You have selected to NOT GRADE THIS ASSIGNMENT.<br />
-                        This assignment will not be graded by the instructor/TAs and a zero will be recorded in the gradebook.<br />
-                        You may select any version above and press "Grade This Version" to re-activate your submission for grading.<br />
+                        注意：你选择了不要为本版本打分<br />
+                        本作业将不会被打分，并且会导致成绩单为0分<br />
+                        你可能需要从上方选择任意版本后，点击“使用这个版本”<br />
                     </p>
                 {% elseif not active_same_as_graded and has_manual_grading %}
                     <p class="red-message">
-                        Note: The version you have selected to be graded is not the version graded by the instructor/TAs.<br />
-                        If the graded version does not match your selected version, a zero will be recorded in the gradebook.
+                        注意：本版本与已打分版本不一致<br />
+                        如果已打分版本与最终提交版本不一致，会导致成绩单为0分
                     </p>
                 {% elseif active_version > 0 and active_version == display_version %}
                     <p class="green-message">
-                        Note: This version of your assignment will be graded by the instructor/TAs and the score recorded in the gradebook.
+                        注意：这是你选择的最终提交版本
                     </p>
                 {% elseif active_version > 0 %}
                     <p class="red-message">
-                        Note: This version of your assignment will not be graded the instructor/TAs. <br />
-                        Click the button "Grade This Version" if you would like to specify that this version of your homework should be graded.
+                        注意：本版本不是最终提交版本<br />
+                        如果你想使用当前版本作为最终提交，那么点击“使用这个版本”
                     </p>
                 {% else %}
                     <p class="red-message">
-                        Note: You have selected to NOT GRADE THIS ASSIGNMENT.<br />
-                        This assignment will not be graded by the instructor/TAs and a zero will be recorded in the gradebook.<br />
-                        Click the button "Grade This Version" if you would like to specify that this version of your homework should be graded.
+                        注意：你选择了不要为本版本打分<br />
+                        本作业将不会被打分，并且会导致成绩单为0分<br />
+                        如果你想使用当前版本作为最终提交，那么点击“使用这个版本”
                     </p>
                 {% endif %}
             </div>

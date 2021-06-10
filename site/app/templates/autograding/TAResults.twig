@@ -14,13 +14,13 @@ $( document ).ready(function() {
 
 {% if not been_ta_graded %}
     <br>
-    <h3>This assignment has not been graded yet</h3>
+    <h3>暂未打分</h3>
 {% elseif not active_same_as_graded %}
     <br>
-    <h3>The version you have selected to be graded above does not match the version graded by your TA/instructor, please contact TA/instructor if necessary to resolve the problem.</h3>
+    <h3>当前选择版本与打分版本不一致，请联系老师或助教重新批改</h3>
 {% elseif not grading_complete %}
     <br>
-    <h3>Grading not complete, please contact an instructor/grader</h3>
+    <h3>打分未完成</h3>
 {% else %}
     <div class="sub">
         {% if ta_components | length > 0 %}
@@ -29,7 +29,7 @@ $( document ).ready(function() {
                 <div class="box-title-total key_to_click" tabindex="0">
 
                     {{ Badge.render(ta_score, ta_max, false) }}
-                    <h4>TA / Instructor Grading Total</h4>
+                    <h4>助教、老师打分合计</h4>
                 </div>
             </div>
             {# /TA/Instructor Manual total #}
@@ -42,7 +42,7 @@ $( document ).ready(function() {
             {% for user in overall_comments | keys | sort %}
                 <div class="overall-comment-box">
                     <p class="overall-comment-author">
-                        Overall note from {{user}}:
+                        {{user}}的总体评价:
                     </p>
                     <p class="overall-comment">
                         <span class='gradeable_comment'>{{ overall_comments[user] | nl2br }}</span>
@@ -56,7 +56,7 @@ $( document ).ready(function() {
                 {% if annotated_file_names|length > 0 %}
                     <div class="row">
                         <div class="no-border-box col-sm-3" style="float: right; padding: 20px; width: 25%; word-break: break-word; display: inline-block">
-                            <b>Annotated Feedback</b>
+                            <b>反馈</b>
                             </br>
                             {% for file in uploaded_pdfs %}
                                 {% if file.encoded_name in annotated_file_names %}
@@ -74,9 +74,9 @@ $( document ).ready(function() {
                             {% for file in uploaded_pdfs %}
                                 {% if file.encoded_name in annotated_file_names %}
                                     <p style="text-align:center; vertical-align: middle;">
-                                        <a class="btn btn-success key_to_click" style="margin-right:20px;" tabindex="0" onclick="openUrl('{{ student_pdf_view_url }}?filename={{ file.name }}&path={{ file.path|url_encode }}&anon_path={{ file.anon_path|url_encode }}')">View Popup <i class="fas fa-window-restore"></i></a>
+                                        <a class="btn btn-success key_to_click" style="margin-right:20px;" tabindex="0" onclick="openUrl('{{ student_pdf_view_url }}?filename={{ file.name }}&path={{ file.path|url_encode }}&anon_path={{ file.anon_path|url_encode }}')">弹窗显示<i class="fas fa-window-restore"></i></a>
                                         {% if can_download %}
-                                            <button class = 'btn btn-default key_to_click' onclick='downloadStudentAnnotations("{{ student_pdf_download_url }}?filename={{ file.name }}&path={{ file.path|url_encode }}&anon_path={{ file.anon_path|url_encode }}", "{{file.path|url_encode}}", "annotated_pdfs")' aria-label="Download the file"> Download
+                                            <button class = 'btn btn-default key_to_click' onclick='downloadStudentAnnotations("{{ student_pdf_download_url }}?filename={{ file.name }}&path={{ file.path|url_encode }}&anon_path={{ file.anon_path|url_encode }}", "{{file.path|url_encode}}", "annotated_pdfs")' aria-label="Download the file">下载
                                             <i class="fas fa-download" title="Download the file"></i></button>
                                         {% endif %}
                                     </p>
@@ -97,13 +97,13 @@ $( document ).ready(function() {
         {# /Component boxes #}
     {% endif %}
     {% if is_grade_inquiry_yet_to_start %}
-        <i>Grade Inquiries will start from</i> <b>{{ grade_inquiry_start_date|date(date_time_format)  }}</b>
+        <i>成绩查询将于</i> <b>{{ grade_inquiry_start_date|date(date_time_format)  }}</b> <i>开始</i>
     {% elseif regrade_available %}
-        <i>Grade inquiries are due by</i> <b>{{ grade_inquiry_due_date|date(date_time_format)  }}</b>
+        <i>成绩查询已结束于：</i> <b>{{ grade_inquiry_due_date|date(date_time_format)  }}</b>
         <div id="ShowRegradeRequestButton">
-            <button type="button" title="Open Grade Inquiry" onclick="$('#regradeBoxSection').show();$([document.documentElement, document.body]).animate({scrollTop: $('#regradeBoxSection').offset().top}, 1000);$(this).hide()" style="margin-right:10px;" class="btn btn-default key_to_click" tabindex="0">Open Grade Inquiry</button>
+            <button type="button" title="Open Grade Inquiry" onclick="$('#regradeBoxSection').show();$([document.documentElement, document.body]).animate({scrollTop: $('#regradeBoxSection').offset().top}, 1000);$(this).hide()" style="margin-right:10px;" class="btn btn-default key_to_click" tabindex="0">开启成绩查询</button>
         </div>
     {% elseif is_grade_inquiry_ended %}
-        <i>Grade inquiries closed on</i> <b>{{ grade_inquiry_due_date|date(date_time_format)  }}</b>
+        <i>成绩查询已结束于：</i> <b>{{ grade_inquiry_due_date|date(date_time_format)  }}</b>
     {% endif %}
 {% endif %}

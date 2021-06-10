@@ -20,7 +20,7 @@ class LateDaysTableView extends AbstractView {
     }
 
     public function showLateTablePage(LateDays $late_days) {
-        $this->core->getOutput()->addBreadcrumb("My Late Days");
+        $this->core->getOutput()->addBreadcrumb("迟交列表");
         $this->core->getOutput()->addInternalCss('table.css');
         $this->core->getOutput()->addInternalCss('latedaystableplugin.css');
         $this->core->getOutput()->enableMobileViewport();

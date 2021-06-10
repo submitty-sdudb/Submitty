@@ -8,7 +8,7 @@ use app\libraries\FileUtils;
 class PlagiarismView extends AbstractView {
 
     public function plagiarismMainPage($semester, $course, $gradeables_with_plagiarism_result, $refresh_page, $nightly_rerun_info) {
-        $this->core->getOutput()->addBreadcrumb('Plagiarism Detection');
+        $this->core->getOutput()->addBreadcrumb('抄袭检测');
 
         $plagiarism_result_info = [];
 
@@ -89,7 +89,7 @@ class PlagiarismView extends AbstractView {
     }
 
     public function showPlagiarismResult($semester, $course, $gradeable_id, $gradeable_title, $rankings) {
-        $this->core->getOutput()->addBreadcrumb('Plagiarism  Detection', $this->core->buildCourseUrl(['plagiarism']));
+        $this->core->getOutput()->addBreadcrumb('抄袭检测', $this->core->buildCourseUrl(['plagiarism']));
         $this->core->getOutput()->addBreadcrumb($gradeable_title);
         $this->core->getOutput()->addVendorCss(FileUtils::joinPaths('codemirror', 'codemirror.css'));
         $this->core->getOutput()->addVendorJs(FileUtils::joinPaths('codemirror', 'codemirror.js'));
@@ -107,8 +107,8 @@ class PlagiarismView extends AbstractView {
     }
 
     public function configureGradeableForPlagiarismForm($new_or_edit, $gradeable_ids_titles, $prior_term_gradeables, $saved_config, $title) {
-        $this->core->getOutput()->addBreadcrumb('Plagiarism Detection', $this->core->buildCourseUrl(['plagiarism']));
-        $this->core->getOutput()->addBreadcrumb('Configure New Gradeable');
+        $this->core->getOutput()->addBreadcrumb('抄袭检测', $this->core->buildCourseUrl(['plagiarism']));
+        $this->core->getOutput()->addBreadcrumb('设置新作业');
         $prior_term_gradeables_json = json_encode($prior_term_gradeables);
 
         #default values for the form

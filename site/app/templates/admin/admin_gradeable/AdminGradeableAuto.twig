@@ -1,17 +1,17 @@
 <div class="electronic_file">
 
     <div class="option-title">
-        What are students allowed to do?
+        允许学生进行哪些操作？
     </div>
     <div>
         <fieldset>
-            <legend>View the gradeable on the course home page and download submitted files?</legend>
+            <legend>在课程网站查看作业并下载已提交的作业</legend>
             <input type="radio" id="no_student_view_after_grades" name="student_view_after_grades" value="false"
-                    {{ gradeable.isStudentView() and not gradeable.isStudentViewAfterGrades() ? 'checked' : '' }}/> <label for="no_student_view_after_grades">Yes</label>
+                    {{ gradeable.isStudentView() and not gradeable.isStudentViewAfterGrades() ? 'checked' : '' }}/> <label for="no_student_view_after_grades">允许</label>
             <input type="radio" id="no_student_view" name="student_view" value="false"
-                    {{ not gradeable.isStudentView() ? 'checked' : '' }}/> <label for="no_student_view">No</label>
+                    {{ not gradeable.isStudentView() ? 'checked' : '' }}/> <label for="no_student_view">拒绝</label>
             <input type="radio" id="yes_student_view_after_grades" name="student_view_after_grades" value="true"
-                    {{ gradeable.isStudentView() and gradeable.isStudentViewAfterGrades() ? 'checked' : '' }}/> <label for="yes_student_view_after_grades">When grades are released</label>
+                    {{ gradeable.isStudentView() and gradeable.isStudentViewAfterGrades() ? 'checked' : '' }}/> <label for="yes_student_view_after_grades">在成绩发布后</label>
             <div hidden>
                 <input type="radio" id="yes_student_view" name="student_view" value="true"
                     {{ gradeable.isStudentView() ? 'checked' : '' }} aria-label="student view"/>
@@ -21,26 +21,25 @@
 
     <div id="student_submit_view">
         <div>
-            <fieldset><legend>Make new submissions and access all prior versions?</legend>
+            <fieldset><legend>提交新的答案后同时能够查看历史版本</legend>
             <input type="radio" id="yes_student_submit" name="student_submit" value="true"
-                    {{ gradeable.isStudentSubmit() ? 'checked' : '' }}/> <label for="yes_student_submit">Yes</label>
+                    {{ gradeable.isStudentSubmit() ? 'checked' : '' }}/> <label for="yes_student_submit">允许</label>
             <input type="radio" id="no_student_submit" name="student_submit" value="false"
-                    {{ not gradeable.isStudentSubmit() ? 'checked' : '' }}/> <label for="no_student_submit">No</label></fieldset>
+                    {{ not gradeable.isStudentSubmit() ? 'checked' : '' }}/> <label for="no_student_submit">拒绝</label></fieldset>
         </div>
     </div>
 <br><br>
 
-    <div class="option-title">Choose an autograding configuration:</div>
-            <p> You may specify your <a target=_blank href="https://submitty.org/instructor/assignment_configuration/configuration_path#course-autograding-configuration-directory">
-                "Course Autograding Config Directory"<i style="font-style:normal;" class="fa-question-circle"></i></a>
-                from the Course Settings Page. </p>
-            <p> Manually type the full path to a configuration file, or select from the list below. </p>
-    <p> The dropdown list has all existing configurations that contain the current text. Hit the red X to clear current text.</p>
+    <div class="option-title">设置自动打分</div>
+            <p> 你需要在课程设置页面进行 <a target=_blank href="https://submitty.org/instructor/assignment_configuration/configuration_path#course-autograding-configuration-directory">
+                "课程自动评分设置"<i style="font-style:normal;" class="fa-question-circle"></i></a></p>
+            <p> 手动输入配置的完整路径，或从列表中直接选择 </p>
+    <p> 下拉列表中将显示所有包含当前输入文字的打分配置。点击红叉清除当前输入的文字。</p>
     {% for error_message in repository_error_messages %}
         <div class="config_search_error">({{error_message}})</div>
     {% endfor %}
     {% if not currently_valid_repository %}
-        <div class="config_search_error"> The current path is not valid, selecting Rebuild Gradeable without changing it will fail.</div>
+        <div class="config_search_error"> 路径无效，如不进行更换将导致作业失效。</div>
     {% endif %}
 
     <div class="settings">
@@ -60,7 +59,7 @@
                 </div>
             </div>
         </div>
-        <a class="btn btn-primary" style="margin-top: 6px" href="{{ upload_config_url }}">Upload a custom autograding configuration</a>
+        <a class="btn btn-primary" style="margin-top: 6px" href="{{ upload_config_url }}">上传自定义自动打分配置</a>
         <br />
         
         {# text box with the path to the current config file, hidden but still used in js #}
@@ -69,23 +68,23 @@
     </div>
 
     <div class="notebook-builder-info">
-        <div class="option-title">Notebook Builder:</div>
+        <div class="option-title">Notebook</div>
         <div>
-            <a class="btn btn-primary" href="{{ notebook_builder_url ~ '/new' }}">Start New</a>
-            <span>Start a new configuration with notebook builder.</span>
+            <a class="btn btn-primary" href="{{ notebook_builder_url ~ '/new' }}">创建</a>
+            <span>利用工具新建作业记事本</span>
         </div>
         <div class="notebook-builder-edit-button-div">
-            <a class="btn btn-primary" href="{{ notebook_builder_url ~ '/edit' }}">Edit Existing</a>
-            <span>Edit the currently selected configuration with notebook builder.</span>
+            <a class="btn btn-primary" href="{{ notebook_builder_url ~ '/edit' }}">编辑</a>
+            <span>利用工具编辑当前记事本</span>
         </div>
     </div>
 
     <div class="btn-container" id="rebuild-gradeable-button">
-        <a class="btn btn-primary key_to_click" tabindex="0" onclick="ajaxRebuildGradeableButton()">Rebuild Gradeable</a>
+        <a class="btn btn-primary key_to_click" tabindex="0" onclick="ajaxRebuildGradeableButton()">重新编译当前作业</a>
     </div>
 
     <div id="rebuild-status-panel">
-        <span id="rebuild-status-label">Build Status: </span>
+        <span id="rebuild-status-label">编译状态：</span>
         <div id="rebuild-status"></div>
     </div>
 
@@ -95,17 +94,17 @@
     </div>
 
     <div class="log-container" hidden>
-        <div class="option-title">Build log:</div>
+        <div class="option-title">编译日志:</div>
         <pre id="build-log-body"></pre>
     </div>
 
     <div class="log-container" hidden>
-        <div class="option-title">CMake output:</div>
+        <div class="option-title">CMake输出:</div>
         <pre id="cmake-log-body"></pre>
     </div>
 
     <div class="log-container" hidden>
-        <div class="option-title">Make output:</div>
+        <div class="option-title">Make输出:</div>
         <pre id="make-log-body"></pre>
     </div>
 

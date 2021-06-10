@@ -22,17 +22,17 @@ class GlobalView extends AbstractView {
         $course_name = ucwords(strtolower($this->core->getFullCourseName()));
         // We assume that if there is no page breadcrumb (only course), we are on gradeables
         if ($course_name == ucwords(strtolower($page_name))) {
-            $page_name = "Gradeables";
+            $page_name = "作业";
         }
 
-        $page_title = "Submitty";
+        $page_title = "数据库系统实验平台";
         if ($this->core->getUser() === null) {
-            $page_title = "Login";
+            $page_title = "登陆";
         }
         elseif ($this->core->getConfig()->isCourseLoaded()) {
             $page_title = $page_name . " - " . $course_name;
         }
-        elseif (!empty($page_name) && $page_name !== "Submitty") {
+        elseif (!empty($page_name) && $page_name !== "数据库系统实验平台") {
             // $page_name !== "Submitty" is needed so we dont end up with pages with the title "Submitty Submitty"
             $page_title = $page_name;
         }
