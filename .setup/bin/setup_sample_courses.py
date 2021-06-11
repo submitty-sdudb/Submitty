@@ -18,6 +18,7 @@ import argparse
 from collections import OrderedDict
 from datetime import datetime, timedelta
 from shutil import copyfile
+import subprocess
 import glob
 import grp
 import hashlib
@@ -721,9 +722,12 @@ class Course(object):
         add_to_group(course_group, "submitty_php")
         add_to_group(course_group, "submitty_daemon")
         add_to_group(course_group, "submitty_cgi")
-        os.system("{}/sbin/create_course.sh {} {} {} {}"
-                  .format(SUBMITTY_INSTALL_DIR, self.semester, self.code, self.instructor.id,
-                          course_group))
+        try:
+            subprocess.check_output(["{}/sbin/create_course.sh"
+                                     .format(SUBMITTY_INSTALL_DIR), self.semester, self.code, self.instructor.id,
+                                     course_group], timeout=60)
+        except subprocess.TimeoutExpired:
+            pass
 
         os.environ['PGPASSWORD'] = DB_PASS
         database = "submitty_" + self.semester + "_" + self.code
